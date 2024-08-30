@@ -1,0 +1,161 @@
+#!/bin/bash
+
+# week12-check-3
+
+# Author:  Murray Saul
+# Date:    March 21 2021
+# Modified By: Jason Carman
+# Modified: January 3, 2023
+#
+# Purpose: Verify that user created a shell scripts in their`
+#          their ~/advanced directory and have execute permissions
+#          
+#          This script also checks to if student's script's output match the
+#          required output as per tutorial instructions
+#     
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+function check(){
+
+  if eval $1
+  then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     printf "$2" 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+# if [ $PWD != $HOME ]
+#  then
+#   echo -e "\033[1mERROR:\033[0m"
+#   echo
+#   echo "You are NOT located in your HOME directory."
+#   echo -e "(i.e. \033[1m$HOME\033[0m )"
+#   echo
+#   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+#   echo -e "and confirm that you are"
+#   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+#   echo "and re-run this checking script."
+#   echo
+#   echo
+# 
+#   exit 1
+# fi
+
+# Start checking of week12 tutorial
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+# Check "advanced" directory was created in home directory
+echo -n "Checking \"advanced\" directory has been created in your home directory: "
+check "test -d $HOME/advanced" "The directory pathname \"$HOME/advanced\" does NOT exist. Check if you mispelled the directory name, or used uppercase letters by mistake. Create the \"advanced\" directory that is contained in your home directory and re-run this checking script\n"
+
+# Check "exit.bash" shell script was created in advanced directory
+echo -n "Checking \"exit.bash\" shell script file has been created in in the \"~/advanced directory\": "
+check "test -f $HOME/advanced/exit.bash" "The file pathname \"$HOME/advanced/exit.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. make corrections and re-run this checking script\n"
+
+# Check "exit.bash" shell script (in your ~/advanced directory) has execute permissions
+echo -n "Checking \"exit.bash\" shell script file has execute permissions: "
+check "test -x $HOME/advanced/exit.bash" "The shell script pathname \"$HOME/advanced/exit.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"exit.bash\" shell script file in your home directory and re-run this checking script\n"
+
+# Check "error.txt" text file (in your ~/advanced directory) exists
+echo -n "Checking \"$HOME/advanced/error.txt\" file exists: "
+check "test -f $HOME/advanced/error.txt" "The shell script pathname \"$HOME/advanced/error.txt\" does NOT exist. Re-run Linux command with redirection of stderr to the error.txt file and re-run this checking script\n"
+
+cat > /tmp/compare.$$ <<+
+USAGE: ./exit.bash [arg]
++
+
+# Run student's shell script and store stdout to a temp file
+
+cat $HOME/advanced/error.txt > /tmp/student.$$
+
+# Check student's "error.txt" file has CORRECT output
+# Notice that "diff" command is used to compare your startup file
+# with CORRECT required contents (i.e. comparison file)
+# Notice command's output and error thrown out to "/dev/null" since
+# we are only interested in TRUE or FALSE.
+
+echo -n "Checking your \"error.txt\" file contains CORRECT required output: "
+check "diff /tmp/student.$$ /tmp/compare.$$ > /dev/null 2> /dev/null" "The contents of this file does NOT match\nthe required specifications provided from your tutorial instructions.\n\n\e[3;4;33mYou Error file contents (including empty lines)\e[0m\n$(cat /tmp/student.$$)\n\n\e[3;4;33mCORRECT error file contents (including empty lines)\e[0m\n$(cat /tmp/compare.$$)\n\nCAREFULLY look for differences, then make corrections to your Bash shell script\nto match CORRECT OUTPUT, save editing changes, run your script to confirm,\nand then re-run this checking script.\n\n"
+
+# Check "break-1.bash" shell script was created in advanced directory
+echo -n "Checking \"break-1.bash\" shell script file has been created in in the \"~/advanced directory\": "
+check "test -f $HOME/advanced/break-1.bash" "The file pathname \"$HOME/advanced/break-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. make corrections and re-run this checking script\n"
+
+# Check "break-1.bash" shell script (in your ~/advanced directory) has execute permissions
+echo -n "Checking \"break-1.bash\" shell script file has execute permissions: "
+check "test -x $HOME/advanced/break-1.bash" "The shell script pathname \"$HOME/advanced/break-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"break-1.bash\" shell script file in your home directory and re-run this checking script\n"
+
+# Check "break-2.bash" shell script was created in advanced directory
+echo -n "Checking \"break-2.bash\" shell script file has been created in in the \"~/advanced directory\": "
+check "test -f $HOME/advanced/break-2.bash" "The file pathname \"$HOME/advanced/break-2.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. make corrections and re-run this checking script\n"
+
+
+# Check "break-2.bash" shell script (in your ~/advanced directory) has execute permissions
+echo -n "Checking \"break-2.bash\" shell script file has execute permissions: "
+check "test -x $HOME/advanced/break-2.bash" "The shell script pathname \"$HOME/advanced/break-2.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"break-2.bash\" shell script file in your home directory and re-run this checking script\n"
+
+. /home/osl640/duedates.txt
+
+weekDueDate=$t12
+
+/home/jason.carman/.hidden/transmogrify $USER 12 3 $(date +%s)
+
+if [ $(date +%s) -le $weekDueDate ]
+then
+   label=""
+else
+   label="LATE "
+fi
+
+echo "${label}Week12-check-3 Check Completed for: $USER" | mail -s "${label}Week12-check-3 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}Week12-check-3 Completed for: $USER" | mail -s "${label}Week12-check-3 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
+if [ $(date +%s) -le $weekDueDate ]
+then
+   echo
+   echo "Congratulations!"
+   echo
+   echo  "You have passed the week12-check-3 script"
+   echo  "This means that you correctly created and ran your shell scripts"
+   echo  "and hopefully learned the importance"
+   echo  "of your script EXACTLY matching the required output!  :)"
+   echo
+   echo  "An email has been sent to your Seneca Polytechnic email account"
+   echo  "for confirmation, keep this email for proof until the end of"
+   echo  "this semester."
+   echo
+   echo  "You can proceed with this tutorial."
+   echo
+else
+   echo
+   echo  "You have passed the week12-check-3 script"
+   echo  "This means that you correctly created and ran your shell scripts"
+   echo  "and hopefully learned the importance"
+   echo  "on your script EXACTLY matching the required output!  :)"
+   echo
+   echo  "UNFORTUNATELY, THE DUE DATE FOR THIS TUTORIAL HAS PASSED"
+   echo  "SO YOU CANNOT RECEIVE MARKS FOR THIS TUTORIAL"
+   echo
+   echo  "An email of your LATE submission has been sent to your"
+   echo  "Seneca Polytechnic email account"
+   echo
+   echo  "You can proceed with this tutorial."
+   echo
+fi

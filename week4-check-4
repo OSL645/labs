@@ -1,0 +1,145 @@
+#!/bin/bash
+
+# week4-check-4
+
+# Author:  Murray Saul
+# Date:    February 3, 2021
+# Modified By: Jason Carman
+# Modified: January 3, 2023
+#
+# Purpose: Check that user correctly set permissions for files using
+#          the chmod and umask commands. This shell script will exit if errors,
+#          but will provide feedback to correct the problem.
+#          If no errors, then a congratulatory message will be displayed
+#          so that the user can proceed to the next section.
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+function check(){
+
+  if eval $1
+  then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     echo $2 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+# if [ $PWD != $HOME ]
+#  then
+#   echo -e "\033[1mERROR:\033[0m"
+#   echo
+#   echo "You are NOT located in your HOME directory."
+#   echo -e "(i.e. \033[1m$HOME\033[0m )"
+#   echo
+#   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+#   echo -e "and confirm that you are"
+#   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+#   echo "and re-run this checking script."
+#   echo
+#   echo
+# 
+#   exit 1
+# fi
+
+# Start checking of week4 tutorial
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+### To be completed in future - check for file permissions set correctly ###
+
+# Check ~/documents/memos/memo1.txt file has rw-r----- permissions
+echo -n "Checking \"~/documents/memos/memo1.txt\" text file has \"rw-r-----\" permissions: "
+check "ls -l ~/documents/memos/memo1.txt | grep -sq \"\-rw-r\-\-\-\-\-\"" "The text file \"~/documents/memos/memo1.txt\" does NOT contain the permissions \"-rw-r-----\" (use ls -l ~/documents/memos/memo1.txt) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script"
+
+# Check ~/documents/memos/memo2.txt file has rw-r----- permissions
+echo -n "Checking \"~/documents/memos/memo2.txt\" text file has \"rw-r-----\" permissions: "
+check "ls -l ~/documents/memos/memo2.txt | grep -sq \"\-rw-r\-\-\-\-\-\"" "The text file \"~/documents/memos/memo2.txt\" does NOT contain the permissions \"-rw-r-----\" (use ls -l ~/documents/memos/memo2.txt) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script"
+
+# Check ~/documents/memos/memo3.txt file has rw-r----- permissions
+echo -n "Checking \"~/documents/memos/memo3.txt\" text file has \"rw-r-----\" permissions: "
+check "ls -l ~/documents/memos/memo3.txt | grep -sq \"\-rw-r\-\-\-\-\-\"" "The text file \"~/documents/memos/memo3.txt\" does NOT contain the permissions \"-rw-r-----\" (use ls -l ~/documents/memos/memo3.txt) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script"
+
+# Check ~/documents/memos/memo1.txt file is NOT empty
+echo -n "Checking \"~/documents/memos/memo1.txt\" text file is NOT empty: "
+check "test -s  ~/documents/memos/memo1.txt" "The text file \"~/documents/memos/memo1.txt\" is NOT empty which indicates that you did NOT edit the file and save editing changes to prove adding write permissions for this file allows text edting this file. Please edit this file, type a few words, then save and exit the text editor, and then re-run this checking script"
+
+# Check ~/shared directory exists
+echo -n "Checking \"~/shared\" directory has been created: "
+check "test -d ~/shared" "The directory pathname \"~/shared\" does NOT exists. Please create this directory and re-run this checking script"
+
+# Check ~/shared2 directory exists
+echo -n "Checking \"~/shared2\" directory has been created: "
+check "test -d ~/shared2" "The directory pathname \"~/shared2\" does NOT exists. Please create this directory and re-run this checking script"
+
+# Check ~/shared2 directory has rwx------ permissions
+echo -n "Checking \"~/shared2\" directory has \"rwx------\" permissions: "
+check "ls -ld ~/shared2 | grep -sq \"\drwx\-\-\-\-\-\-\"" "The directory pathname \"~/shared2\" does NOT contain the permissions \"rwx------\" (use ls -ld ~/shared2) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script"
+
+# Check ~/shared2/myfile.txt file was created
+echo -n "Checking \"~/shared2/myfile.txt\" file was created: "
+check "test -f ~/shared2/myfile.txt" "The file pathname \"~/shared2/myfile.txt\" does NOT exist. Create this empty file and re-run this checking script"
+
+# Check ~/shared2/myfile.txt file has rwx------ permissions
+echo -n "Checking \"~/shared2/myfile.txt\" file has \"rw-------\" permissions: "
+check "ls -l ~/shared2/myfile.txt | grep -sq \"\-rw\-\-\-\-\-\-\-\"" "The file pathname \"~/shared2/myfile.txt\" does NOT contain the permissions \"rw-------\" (use ls -l ~/shared2/myfile.txt) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script"
+
+. /home/osl640/duedates.txt
+
+weekDueDate=$t04
+
+/home/jason.carman/.hidden/transmogrify $USER 4 4 $(date +%s)
+
+if [ $(date +%s) -le $weekDueDate ]
+then
+   label=""
+else
+   label="LATE "
+fi
+
+echo "${label}Week4-check-4 Check Completed for: $USER" | mail -s "${label}Week4-check-4 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}Week4-check-4 Completed for: $USER" | mail -s "${label}Week4-check-4 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
+if [ $(date +%s) -le $weekDueDate ]
+then
+   echo
+   echo "Congratulations!"
+   echo
+   echo  "You have passed the week4-check-4 script"
+   echo  "This means that you correctly assigned permissions :)"
+   echo
+   echo  "An email has been sent to your Seneca Polytechnic email account"
+   echo  "for confirmation, keep this email for proof until the end of"
+   echo  "this semester."
+   echo
+   echo  "You can proceed with this tutorial."
+   echo
+else
+   echo
+   echo  "You have passed the week4-check-4 script"
+   echo  "This means that you correctly assigned permissions :)"
+   echo
+   echo  "UNFORTUNATELY, THE DUE DATE FOR THIS TUTORIAL HAS PASSED"
+   echo  "SO YOU CANNOT RECEIVE MARKS FOR THIS TUTORIAL IF YOUR"
+   echo  "OSL640 PROFESSOR ARE GRADING TUTORIALS"
+   echo
+   echo  "An email of your LATE submission has been sent to your"
+   echo  "Seneca Polytechnic email account"
+   echo
+   echo  "You can proceed with this tutorial."
+   echo
+fi

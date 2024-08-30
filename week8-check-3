@@ -1,0 +1,136 @@
+#!/bin/bash
+#
+# week8-check-3
+
+# Author:  Murray Saul
+# Date:    January 29, 2021
+# Modified By: Jason Carman
+# Modified: January 3, 2023
+#
+# Purpose: Check that user correctly created persistent aliases
+#          on their matrix server. If the errors, then the
+#          checking script will provide feedback to correct the problem.
+#          If no errors, then a congratulatory message will be displayed
+#          so that the user can proceed to the next section.
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+function check(){
+
+  if eval $1
+  then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     echo "$2 "
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+# if [ $PWD != $HOME ]
+#  then
+#   echo -e "\033[1mERROR:\033[0m"
+#   echo
+#   echo "You are NOT located in your HOME directory."
+#   echo -e "(i.e. \033[1m$HOME\033[0m )"
+#   echo
+#   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+#   echo -e "and confirm that you are"
+#   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+#   echo "and re-run this checking script."
+#   echo
+#   echo
+# 
+#   exit 1
+# fi
+
+# Start checking week8 tutorial
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+# Assign value to a variable to act as a "flag" for alias match
+
+match=0
+
+# Loop to read in all aliases (line-by-line)
+
+while read line
+do
+
+   # if line matches "lh=" pattern, increase # of matches by value of 1
+
+   if echo "$line" | grep -sq "lh="
+   then
+     ((match++)) 
+   fi
+done < "${1:-/dev/stdin}"
+
+# Check that "lh" alias is in computer memory using the value of
+# "match" variable. If match variable is NOT equal to 0 (i.e. no matches)
+# then TRUE value; otherwise, FALSE value when evaluated
+
+echo -n "Checking \"lh\" alias has been created: "
+check "test $match -ne 0" "The alias called \"lh\" does NOT exist. Issue the \"alias\" command to properly create this alias and re-run this checking script"
+
+# Check that "lh" alias has been added to the ~/.bashrc startup file
+echo -n "Checking that \"lh\" has been added to the \"~/.bashrc\" startup file: "
+check "grep -sq 'lh\=' ~/.bashrc" "The \"$HOME/.bashrc\" startup file does NOT contain the Linux command to create the \"lh\" alias. Make corrections and re-run this checking script"
+
+. /home/osl640/duedates.txt
+
+weekDueDate=$t08
+
+/home/jason.carman/.hidden/transmogrify $USER 8 3 $(date +%s)
+
+if [ $(date +%s) -le $weekDueDate ]
+then
+   label=""
+else
+   label="LATE "
+fi
+
+echo "${label}Week8-check-3 Check Completed for: $USER" | mail -s "${label}Week8-check-3 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}Week8-check-3 Completed for: $USER" | mail -s "${label}Week8-check-3 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
+if [ $(date +%s) -le $weekDueDate ]
+then
+   echo
+   echo "Congratulations!"
+   echo
+   echo  "You have passed the week8-check-3 script"
+   echo  "This means that you properly created a persistent aliases"
+   echo  "in your Matrix account :)"
+   echo
+   echo  "An email has been sent to your Seneca Polytechnic email account"
+   echo  "for confirmation, keep this email for proof until the end of"
+   echo  "this semester."
+   echo
+   echo  "You can proceed with this tutorial."
+   echo
+else
+   echo
+   echo  "You have passed the week8-check-3 script"
+   echo  "This means that you properly created a persistent aliases"
+   echo  "in your Matrix account :)"
+   echo
+   echo  "UNFORTUNATELY, THE DUE DATE FOR THIS TUTORIAL HAS PASSED"
+   echo  "SO YOU CANNOT RECEIVE MARKS FOR THIS TUTORIAL"
+   echo
+   echo  "An email of your LATE submission has been sent to your"
+   echo  "Seneca Polytechnic email account"
+   echo
+   echo  "You can proceed with this tutorial."
+   echo
+fi

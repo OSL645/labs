@@ -1,0 +1,184 @@
+#!/bin/bash
+
+# week11-check-2
+
+# Author:  Murray Saul
+# Date:    February 18, 2021
+# Modified By: Jason Carman
+# Modified: January 3, 2023
+#
+# Purpose: Check that user correctly issued awk Linux commands
+#          on their matrix server. If the errors, then the
+#          checking script will provide feedback to correct the problem.
+#          If no errors, then a congratulatory message will be displayed
+#          so that the user can proceed to the next section.
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+function check(){
+
+  if eval $1
+  then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     echo $2 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+# if [ $PWD != $HOME ]
+#  then
+#   echo -e "\033[1mERROR:\033[0m"
+#   echo
+#   echo "You are NOT located in your HOME directory."
+#   echo -e "(i.e. \033[1m$HOME\033[0m )"
+#   echo
+#   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+#   echo -e "and confirm that you are"
+#   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+#   echo "and re-run this checking script."
+#   echo
+#   echo
+# 
+#   exit 1
+# fi
+
+# Start checking week11 tutorial
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+# Check directory "awk" created in home directory
+echo -n "Checking \"awk\" directory has been created in your home directory: "
+check "test -d $HOME/awk" "The directory pathname \"$HOME/awk\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"awk\" in your home directory and re-run this checking script"
+
+# Check that cars.txt file was downloaded to your "awk" directory
+echo -n "Checking \"cars.txt\" file was downloaded to the \"awk\" directory: "
+check "test -f $HOME/awk/cars.txt" "The file pathname \"$HOME/awk/cars.txt\" does NOT exist. Use the \"wget\" command to properly download this file and re-run this checking script"
+
+# Check ~/awk/awk-1.txt file exists
+echo -n "Checking \"$HOME/awk/awk-1.txt\" file exists: "
+check "test -f $HOME/awk/awk-1.txt" "The text file pathname \"$HOME/awk/awk-1.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
+
+# Check ~/awk/awk-1.txt file contains correct results
+echo -n "Checking \"$HOME/awk/awk-1.txt\" file contains correct results: "
+awk '/ford/' $HOME/awk/cars.txt > /tmp/temp.$$
+check "diff $HOME/awk/awk-1.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-1.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
+rm /tmp/temp.$$ 2> /dev/null
+
+# Check ~/awk/awk-2.txt file exists
+echo -n "Checking \"$HOME/awk/awk-2.txt\" file exists: "
+check "test -f $HOME/awk/awk-2.txt" "The text file pathname \"$HOME/awk/awk-2.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
+
+# Check ~/awk/awk-2.txt file contains correct results
+echo -n "Checking \"$HOME/awk/awk-2.txt\" file contains correct results: "
+awk '/chevy/ {print $2,$3,$4,$5}' $HOME/awk/cars.txt > /tmp/temp.$$
+check "diff $HOME/awk/awk-2.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-2.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
+rm /tmp/temp.$$ 2> /dev/null
+
+# Check ~/awk/awk-3.txt file exists
+echo -n "Checking \"$HOME/awk/awk-3.txt\" file exists: "
+check "test -f $HOME/awk/awk-3.txt" "The text file pathname \"$HOME/awk/awk-3.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
+
+# Check ~/awk/awk-3.txt file contains correct results
+echo -n "Checking \"$HOME/awk/awk-3.txt\" file contains correct results: "
+awk '$1 ~ /plym/ {print $2,$3,$4,$5}' $HOME/awk/cars.txt  > /tmp/temp.$$
+check "diff $HOME/awk/awk-3.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-3.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
+rm /tmp/temp.$$ 2> /dev/null
+
+# Check ~/awk/awk-4.txt file exists
+echo -n "Checking \"$HOME/awk/awk-4.txt\" file exists: "
+check "test -f $HOME/awk/awk-4.txt" "The text file pathname \"$HOME/awk/awk-4.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
+
+# Check ~/awk/awk-4.txt file contains correct results
+echo -n "Checking \"$HOME/awk/awk-4.txt\" file contains correct results: "
+awk '$5 < 5000 {print $1,$2,$4,$5}' $HOME/awk/cars.txt > /tmp/temp.$$
+check "diff $HOME/awk/awk-4.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-4.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
+rm /tmp/temp.$$ 2> /dev/null
+
+# Check ~/awk/awk-5.txt file exists
+echo -n "Checking \"$HOME/awk/awk-5.txt\" file exists: "
+check "test -f $HOME/awk/awk-5.txt" "The text file pathname \"$HOME/awk/awk-5.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
+
+# Check ~/awk/awk-5.txt file contains correct results
+echo -n "Checking \"$HOME/awk/awk-5.txt\" file contains correct results: "
+awk '$5 < 5000 {print $1,$2,$4,$5}' $HOME/awk/cars.txt > /tmp/temp.$$
+check "diff $HOME/awk/awk-5.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-5.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
+rm /tmp/temp.$$ 2> /dev/null
+
+# Check ~/awk/awk-6.txt file exists
+echo -n "Checking \"$HOME/awk/awk-6.txt\" file exists: "
+check "test -f $HOME/awk/awk-6.txt" "The text file pathname \"$HOME/awk/awk-6.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
+
+# Check ~/awk/awk-6.txt file contains correct results
+echo -n "Checking \"$HOME/awk/awk-6.txt\" file contains correct results: "
+awk '$1 ~ /^f/ {print $1,$2,$4}' $HOME/awk/cars.txt > /tmp/temp.$$
+check "diff $HOME/awk/awk-6.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-6.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
+rm /tmp/temp.$$ 2> /dev/null
+
+# Check ~/awk/awk-7.txt file exists
+echo -n "Checking \"$HOME/awk/awk-7.txt\" file exists: "
+check "test -f $HOME/awk/awk-7.txt" "The text file pathname \"$HOME/awk/awk-7.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
+
+# Check ~/awk/awk-7.txt file contains correct results
+echo -n "Checking \"$HOME/awk/awk-7.txt\" file contains correct results: "
+awk '$1 ~ /ford/ && $5 > 10000 {print $0}' $HOME/awk/cars.txt > /tmp/temp.$$
+check "diff $HOME/awk/awk-7.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-7.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
+rm /tmp/temp.$$ 2> /dev/null
+
+. /home/osl640/duedates.txt
+
+weekDueDate=$t11
+
+/home/jason.carman/.hidden/transmogrify $USER 11 2 $(date +%s)
+
+if [ $(date +%s) -le $weekDueDate ]
+then
+   label=""
+else
+   label="LATE "
+fi
+
+echo "${label}Week11-check-2 Check Completed for: $USER" | mail -s "${label}Week11-check-2 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}Week11-check-2 Completed for: $USER" | mail -s "${label}Week11-check-2 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
+if [ $(date +%s) -le $weekDueDate ]
+then
+   echo
+   echo "Congratulations!"
+   echo
+   echo  "You have passed the week11-check-2 script"
+   echo  "This means that you properly issued all awk Linux commands"
+   echo
+   echo  "An email has been sent to your Seneca Polytechnic email account"
+   echo  "for confirmation, keep this email for proof until the end of"
+   echo  "this semester."
+   echo
+   echo  "You can proceed with this tutorial."
+   echo
+else
+   echo
+   echo  "You have passed the week11-check-2 script"
+   echo  "This means that you properly issued all awk Linux commands"
+   echo
+   echo  "UNFORTUNATELY, THE DUE DATE FOR THIS TUTORIAL HAS PASSED"
+   echo  "SO YOU CANNOT RECEIVE MARKS FOR THIS TUTORIAL"
+   echo
+   echo  "An email of your LATE submission has been sent to your"
+   echo  "Seneca Polytechnic email account"
+   echo
+   echo  "You can proceed with this tutorial."
+   echo
+fi

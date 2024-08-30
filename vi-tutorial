@@ -1,0 +1,898 @@
+#!/bin/bash
+
+##############################################################################
+###                                                                        ###
+###                USING THE VI TEXT EDITOR                                ###
+###                                                                        ###
+### This script provides an "interactive lab" for students taking          ###
+### ULI101 - Introduction to Unix/Linux and the Internet.                  ###
+### The structure of the lab consists of a few opening banners,            ###
+### followed by a menu which provides 2 levels of tutorials  - Basic       ###
+### and Practical Application                                              ###
+###                                                                        ###
+### Author: Murray Edward Saul                                             ###
+### Date: November 11, 2001                                                ###
+### Modified: January 2006, January 2008                                   ###
+###                                                                        ###
+##############################################################################
+
+### Define Functions ###
+
+TERM=vt100
+
+exit_script()
+{
+	clear
+	cat <<+
+You have terminated the tutorial
+
+You will have to run this tutorial
+again if you want to complete it.
+
+Press <ENTER> to continue
++
+read null
+clear
+cd $HOME
+rm .engineb  practise_?b.$$ output.$$ data_?b.* 2> /dev/null
+exit 1
+}
+
+
+### Trap <CTRL><C> key ###
+
+trap 'exit_script' 2
+
+clear
+if [ $COLUMNS -lt 80 -a $LINES -lt 24 ] 2> /dev/null
+then
+cat <<+
+This tutorial cannot continue because your
+shell application window is NOT maximized.
+
+Please maximize your shell application window
+and re-run this tutorial.
+
+Press <ENTER> to continue
++
+read null
+clear
+exit 1
+fi
+
+
+### Set Backspace Property ###
+
+stty erase "^H"
+
+
+### move to user's home directory Remove temp files ###
+
+cd $HOME
+rm .engineb data_?b.* 2> /dev/null
+
+
+### Copy .engineb file to user's home directory ### 
+
+ cp /home/murray.saul/vi_tutorial/.engineb $HOME
+
+##############################################################################
+###                                                                        ###
+###              USING THE VI TEXT EDITOR                                  ###
+###                                                                        ###
+###                                                                        ###
+###                                                                        ###
+### This script provides an "interactive lab" for students taking          ###
+### ULI101 - Introduction to Unix/Linux and the Internet. The              ###
+### structure of this lab consists of a few opening banners,               ###
+### followed by a menu which provides a set of tutorials followed by       ###
+### a practise exercise.                                                   ### 
+###                                                                        ###
+### Author: Murray Edward Saul                                             ###
+### Date: fall, 2001                                                       ###
+### Last Updated: January 2008                                             ###
+###                                                                        ###
+##############################################################################
+
+clear
+if [ $COLUMNS -lt 80 ] 2> /dev/null
+then
+cat <<+
+This tutorial cannot continue because your
+shell application is NOT maximized.
+
+Please maximize your shell application window
+and re-run this tutorial.
+
+Press <ENTER> to continue
++
+read null
+clear
+exit 1
+fi
+		
+
+clear
+cat <<+
+*********************************
+*                               *
+*  SESSION SHELL WINDOW SHOULD  *
+*  BE MAXIMIZED BEFORE USING    *
+*  THIS TUTORIAL.               *
+*                               *
+*  PRESS <CTRL><C> TO EXIT      *
+*  PRESS <ENTER>   TO CONTINUE  *
+*                               *
+*********************************
++
+
+read null
+
+clear
+cat <<+
+*********************************
+*                               *
+*  IF THIS TUTORIAL DOES NOT    *
+*  DISPLAY PROPERLY, PRESS      *
+*  <CTRL><C> TO ABORT, RESTART  *
+*  TERMINAL/SESSION WINDOW AND  *
+*  REDO THE TUTORIAL            *
+*                               *
+*  PRESS <ENTER>   TO CONTINUE  *
+*                               *
+*********************************
++
+
+read null
+
+# Redirect first command database file into a file data_1 with PID extension
+
+cat > data_1b.$$ <<+
+x;1;1; ;You are now in the vi editor.; ;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;1;1; ;The tilde chararcter "~" indicates;the end of the file.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;1;1; ;There are two modes for issuing commands:;"command mode" and "last-line mode".;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0
+x;1;1; ;When you first launch the vi editor,;you are immediately in "command mode".;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0
+x;1;1; ;Command mode allows the user to issue letter;commands (eg. "i" for insert or "d" for delete).;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0
+x;1;1; ;The "last-line" mode allows the user to issue;full-word commands (eg. "write" or "exit").;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0
+x;1;1; ;Let's name our work "yourfile";and exit the vi text editor.;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0
+x;1;1; ;In order to save our work as "yourfile",;we need to access the last-line mode.;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0
+x;1;1; ;To issue "last-line" mode:; ;Press colon ":";58;Invalid key. Press colon ":"             ;0
+:;1;1; ;Let's now save our file. Type the command;displayed below and press <ENTER>:;"write yourfile";10;Invalid. Type "write yourfile" <ENTER>;lwrite yourfile
+"yourfile" [New] 0L, 0C written;1;1; ;You should notice that your file is saved.; ;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0
+"yourfile" [New] 0L, 0C written;1;1; ;When using the vi editor in Matrix, you would;use the command "w yourfile" in last-line mode.;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0
+"yourfile" [New] 0L, 0C written;1;1; ;Now let's exit the vi tutorial.;Press colon ":" to access last-line mode.; ;58;Invalid key. Press colon ":"               ;0
+:;24;1; ;Now type the word "exit";and press <ENTER> to exit the vi editor.; ;10;Invalid. Type "exit" <ENTER>;lexit
++
+
+
+# Redirect second command database file into a file data_2 with PID extension
+
+cat > data_2b.$$ <<+
+x;1;1; ;Please note that as soon as we launch vi,;we are in command mode and NOT input mode!;Press <ENTER> to continue;10;Invalid. Press <ENTER>;0
+x;1;1; ;If you have used other text editors such as;nled or pico, you will make mistakes in vi!;Press <ENTER> to continue;10;Invalid. Press <ENTER>;0
+x;1;1; ;When you are in command mode, you can issue;commands by pressing a letter.;Press <ENTER> to continue;10;Invalid. Press <ENTER>;0
+x;1;1; ;Let's press the letter "i" to enter input mode.; ; ;105;Invalid. Press the letter "i" (without quotes);0
+x;1;1;-- INSERT --;Let's start typing in some text.;Type in the text displayed below and press <ENTER>:;"This is the first line";10;Enter "This is the first line" (without quotes);tThis is the first line
+x;2;1;-- INSERT --;Now type the next line displayed below and;and press <ENTER>:;"This is the second line";10;Enter "This is the second line" (without quotes);tThis is the second line
+x;3;1;-- INSERT --;We have finished inserting text, so let's return;to command mode by pressing <ESC>.; ;27;Invalid Key. Press the <ESC> key;0 
+x;3;1; ;Notice that the "insert" mode indicator has;disappeared to indicate your are in "command mode".;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;3;1; ;At some point during your editing session,;you may have to abort your editing session.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;3;1; ;Now let's exit the vi tutorial.;Press colon ":" to access last-line mode.; ;58;Invalid key. Press colon ":"               ;0
+:;3;1; ;To abort your editing session,;press quit! <ENTER>; ;10;Invalid. Type "quit!" <ENTER> (not including quotes);lquit!
++
+
+cat > data_3b.$$ <<+
+x;1;1; ;Notice that all the lines that you typed;are lost from the "aborted" editing session.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;1;1; ;First, if we are to perform any editing we must;first enter an editing command!;Press <ENTER> to continue;10;Invalid, Press <ENTER>;0
+x;1;1; ;Not knowing whether you are in "input mode" or;"command mode" can cause problems for the user.;Press <ENTER> to continue;10;Invalid, Press <ENTER>;0
+x;1;1; ;Here is a solution to the problem:;Press colon ":" to enter last-line mode; ;58;Invalid, Press colon ":";0
+:;1;1; ;Now at the command prompt, type "set showmode";and press <ENTER>; ;10;Invalid. Type "set showmode" and press <ENTER>;lset showmode
+:set showmode;1;1; ;Sometimes, it is necessary to "refresh" the screen.;(for example, ":set showmode" that still appears!).;Press the keys <CTRL><l> to refresh this screen.;12;Invalid. Press <CTRL><l> (lowercase "L").;0
+x;1;1; ;Now press the letter "i" to access input mode.; ; ;105;Invalid. Press "i";0
+x;1;1;-- INSERT --;Let's  re-enter the lines that you typed.;First, enter the text shown below;"This is the first line";10;Enter "This is the first line" (without quotes);tThis is the first line
+x;2;1;-- INSERT --;Now, enter the second line as shown below:; ;"This is the second line";10;Enter "This is the second line" (without quotes);tThis is the second line
+x;3;1;-- INSERT --;Let's return to "command" mode by pressing;the <ESC> key.; ;27;Invalid Key. Press <ESC>;0 S
+x;3;1; ;We will now demonstrate how to;move within the vi editor;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0 
+x;3;1; ;Let's move up one line. Press the key;lower-case "k".; ;107;Invalid key. Press the key lowercase "k";0
+x;2;1; ;Let's move up one line again. Press the key;lower-case "k".; ;107;Invalid key. Press lowercase "k".;0T
+x;1;1; ;Now Press the key lowercase "j" to move;down line.; ;106;Invalid Key. Press lowercase "j".;0T
+x;2;1; ;Now Press dollar sign "$" to move the cursor to;the end of the current line.; ;36;Invalid Key. Press dollar sign "$".;0T
+x;2;24; ;Now Press the number 0 (zero) to move the cursor;to the beginning of the current line.; ;48;Invalid Key. Press the number zero (i.e. "0").;0 
+x;2;1; ;Press the key uppercase "G" to move the cursor;to the end of the file.; ;71;Invalid Key. Press uppercase "G" (without quotes).;0T
+x;3;1; ;Typing a number before uppercase "G" will;move the cursor to the specified line number.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>.;0 
+x;3;1; ;To move to the top of the file,;(i.e. the first line) your press "1G".; ;49;Invalid Key. Press 1G.;0 
+x;3;1; ;To move to the top of the file,;(i.e. the first line) your press "1G".; ;71;Invalid Key. Press G.;0 
+x;1;1; ;You can also use keys;to move one screenful at a time;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0T
+x;1;1; ;Now Press <CTRL><f> to move the cursor;to the next screen.; ;6;Invalid Key. Press <CTRL><f>;0T
+x;3;1; ;Since the file is small the next screen;happens to be at the bottom of the file;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0  
+x;3;1; ;Now Press <CTRL><b> to move the cursor to;the previous screen.; ;2;Invalid Key. Press <CTRL><b>;0 
+x;1;1; ;You can also use keys to;move the cursor across words;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0T
+x;1;1; ;Press lowercase "w" twice to move the cursor to;the beginning of the second word.; ;119;Invalid Key. Press lowercase "w".;0
+x;1;6; ;Press lowercase "w" twice to move the cursor to;the beginning of the second word.; ;119;Invalid Key. Press lowercase "w".;0i
+x;1;9; ;Good. Now press lowercase "b" once to move the;cursor to the beginning of the second word.; ;98;Invalid Key. Press lowercase "b".;0t
+x;1;6; ;Let's save our work and exit vi;To access last-line mode:;Press colon ":";58;Invalid key. Press colon ":";0i
+:;1;6; ;Let's try a shorter way of saving and exiting:;Type the letter "x" and press <ENTER>.; ;10;Invalid. Press "x" <ENTER>;lx
++
+
+cat > data_4b.$$ <<+
+x;1;1; ;You should notice your work was;saved from the last editing session.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0T
+x;1;1; ;In this session, you will learn more;editing techniques to modify your text.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0T
+x;1;1; ;To avoid confusion when editing, make certain that;your CAP LOCK button is off! ;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>.;0T
+x;1;1; ;You can remove text by pressing the letter x; ;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>.;0T
+x;1;1; ;Another tip: To undo your last edit - press u; ;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0T
+x;1;1; ;Let show more interesting editing techniques;that just pressing "x" to delete or "i" to insert ;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0T
+x;1;1; ;You are about to move down two lines;to start editing text.;Press <ENTER> to continue;10;Invalid key. Press <ENTER>;0T
+x;1;1; ;Press the key lowercase "j" to move;down one line.; ;106;Invalid Key. Press lowercase "j".;0T
+x;2;1; ;Press the key lowercase "j" to move;down another line.; ;106;Invalid Key. Press lowercase "j".;0T
+x;3;1; ;Now press the letter "i" to access input mode.; ; ;105;Invalid. Press "i";0
+x;3;1;-- INSERT --;Now, enter the third line as shown below:; ;"This is the third line";10;Enter "This is the third line" (without quotes);tThis is the third line
+x;4;1;-- INSERT --;We have finished inserting text, so let's return;to command mode by pressing <ESC> key; ;27;Invalid Key. Press the <ESC> key;0 
+x;4;1; ;Press lower-case "k" to move up one line.; ; ;107;Invalid key. Press lowercase "k".;0
+x;3;1; ;Let's replace the first letter of this sentence.;Type the letter "r"; ;114;Invalid Key. Press "r" (without the quotes).;0T
+x;3;1; ;Notice that the "REPLACE" mode displays below.;Type the letter "t"; ;116;Invalid Key. Type the letter "t" (without quotes).;0T
+x;3;1; ;Lowercase "r" only replaces single characters.;"R" is used to replace more than one character.;Press <ENTER> to continue.;10;Invalid Key. Press <ENTER>.;0t
+x;3;1; ;Let's replace the entire word "this" with;the word "that". Press the following;letter "R";82;Invalid Key. Type the letter "R" (without quotes).;0t
+x;3;1;-- REPLACE --;Now type the word "that"; ; ;116;Invalid Key. Type "t" (without quotes).;0tR
+x;3;2;-- REPLACE --;Now type the word "that"; ; ;104;Invalid Key. Type "h" (without quotes).;0hR
+x;3;3;-- REPLACE --;Now type the word "that"; ; ;97;Invalid Key. Type "a" (without quotes).;0aR
+x;3;4;-- REPLACE --;Now type the word "that"; ; ;116;Invalid Key. Type "t" (without quotes).;0tR
+x;3;5;-- REPLACE -- ;To return to command mode:;Press <ESC>; ;27;Invalid Key. Press <ESC>.;0
+x;3;5; ;Unfortunatey, the "replace" command only overwrites;words of the same length.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>.;0
+x;3;5; ;Let's change the entire second sentence.;Press the letters "k0" to move up and;to the beginning of the previous line.;107;Invalid Key. Press "k" (without quotes).;0
+x;2;5; ;Let's change the entire second sentence.;Press the letters "k0" to move up and;to the beginning of the previous line.;48;Invalid Key. Press "0" (zero - without quotes).;0
+x;2;1; ;To change the entire sentence,;type the letters "c$"; ;99;Invalid Key. Press "c" (without quotes).;0T
+x;2;1; ;To change the entire sentence,;type the letters "c$"; ;36;Invalid Key. Press "$" (without quotes).;0T
+x;2;1; ;To change the entire sentence,;type the letters "c$"; ;36;Invalid Key. Press "$" (without quotes).;b
+x;2;1;-- INSERT --;You should notice that the entire line;has disappeared. and you are now in insert mode;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>.;0
+x;2;1;-- INSERT --;Let's start typing in some text.;Type in the text displayed below and press <ENTER>:;"This is the replacement line";10;Enter "This is the replacement line" (without quotes);tThis is the replacement line
+x;2;1;-- INSERT --;Let's start typing in some text.;Type in the text displayed below and press <ENTER>:;"This is the replacement line.";10;Enter "This is the replacement line.";e
+x;3;1;-- INSERT --;You should notice that another line;has been inserted;Press <ESC> to return to command mode.;27;Invalid Key. Press <ESC>.;0
+x;3;1; ;Let's change the last 2 words in the;sentence displayed below.;Press the key lowercase "j" to move down a line.;106;Invalid Key. Press lowercase "j" (without quotes).;0
+x;4;1; ;Type the keys "3w" to move forwards 3 words.; ; ;51;Invalid Key. Type the number "3" (without quotes).;0t
+x;4;1; ;Type the keys "3w" to move forwards 3 words.; ; ;119;Invalid Key. Type the letter "w" (without quotes).;0t
+x;4;13; ;To change the last two words,;type the letters "c2w"; ;99;Invalid Key. Press "c" (without quotes).;0t
+x;4;13; ;To change the last two words,;type the letters "c2w"; ;50;Invalid Key. Press "2" (without quotes).;0t
+x;4;13; ;To change the last two words,;type the letters "c2w"; ;119;Invalid Key. Press "w" (without quotes).;0t
+x;4;13; ;To change the last two words,;type the letters "c2w"; ;119;Invalid Key. Press "w" (without quotes).;f
+x;4;13;-- INSERT --;Type in the following text: "last line";and press <ENTER>; ;10;Enter "last line" (without quotes);tlast line
+x;5;1;-- INSERT --;Press <ESC> to return to command mode.; ; ;27;Invalid Key. Press <ESC>.;0
+x;5;1; ;To move to the top of the file,;(i.e. the first line) your press "1G".; ;49;Invalid Key. Press 1G.;0 
+x;5;1; ;To move to the top of the file,;(i.e. the first line) your press "1G".; ;71;Invalid Key. Press G.;0 
+x;1;1; ;Press "A" to move to end of current line;and enter INSERT mode.; ;65;Invalid Key. Type the letter "A";0TA
+x;1;23;-- INSERT --;Type the following text " right here";(with space at beginning) and press <ENTER>; ;10;Enter " right here" (without quotes);t right here
+x;1;23;-- INSERT --;Type the following text " right here";(with space at beginning) and press <ENTER>; ;10;Enter " right here" (without quotes);z
+x;2;1; ;Next, let's delete the entire line above.;Press the letter "k" to move up one line; ;107;Invalid Key. Press the letter "k";0
+x;1;1; ;To delete the current line press "dd"; ; ;100;Invalid Key. Press the letters "dd";0T
+x;1;1; ;To delete the current line press "dd"; ; ;100;Invalid Key. Press the letter "d";0T
+x;1;1; ;To delete the current line press "dd"; ; ;100;Invalid Key. Press the letters "dd";m
+x;1;1; ;It appears that the line is deleted.;Actually, it has been "cut" (to be moved).;Press <ENTER> to continue;10;Invalid Key. Press the letter "k";0
+x;1;1; ;Let's move to the 3rd line by typing "3G"; ; ;51;Invalid Key. Press 3G.;0 
+x;1;1; ;Let's move to the 3rd line by typing "3G"; ; ;71;Invalid Key. Press the letter "G".;0 
+x;3;1; ;To paste text below, press "p"; ; ;112;Invalid Key. Press the letter "p";0T
+x;3;1; ;To paste text below, press "p"; ; ;112;Invalid Key. Press the letter "p";p
+x;3;1; ;If you want to paste above your current;location, you can press "P" (uppercase).;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0T
+x;3;1; ;Let's copy our current line to line #1.;First, to copy this line, press "yy"; ;121;Invalid Key. Press the letters "yy";0T
+x;3;1; ;Let's copy our current line to line #1.;First, to copy this line, press the "yy"; ;121;Invalid Key. Press the letter "y";0T
+x;3;1; ;Move to the second line by typing "2G"; ; ;50;Invalid Key. Press "2G".;0T
+x;3;1; ;Move to the second line by typing "2G"; ; ;71;Invalid Key. Press the letter "G".;0T
+x;2;1; ;To paste text above, press uppercase "P"; ; ;80;Invalid Key. Press uppercase "P";0 
+x;2;1; ;To paste text above, press uppercase "P"; ; ;80;Invalid Key. Press uppercase "P";P
+x;2;1; ;So you can see, this editor is powerful;when you combine editing & movement keys;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;2;1; ;Here is another intesting editing trick:;Pressing period "." will perform last edit.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;2;1; ;We are about to demonstrate this by moving to the;third line to re-paste the copied text.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;2;1; ;Move to the 3rd line by typing "3G"; ; ;51;Invalid Key. Press 3G.;0 
+x;2;1; ;Move to the 3rd line by typing "3G"; ; ;71;Invalid Key. Press the letter "G".;0 
+x;3;1; ;To perform previous edit (i.e. paste last;copied text above current line),;Press period ".";46;Invalid Key. Press the period "." key;0T
+x;3;1; ;To perform previous edit (i.e. paste last;copied text above current line),;Press period ".";46;Invalid Key. Press the period "." key;.
+x;3;1; ;Once you get to "memorize" the editing commands;you will start to appreciate the power of vi;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0T
+x;1;6; ;Let's save our work and exit vi;To access last-line mode:;Press colon ":";58;Invalid key. Press colon ":";0i
+:;1;6; ;To save and exit,;Type the letter "x" and press <ENTER>.; ;10;Invalid. Press "x" <ENTER>;lx
++
+
+cat > data_5b.$$ <<+
+x;1;1; ;Let's quickly demonstrate how to copy and;paste text between documents.;Press <ENTER> to continue;10;Invalid, Press <ENTER>;0
+x;1;1; ;Press "2yy" to copy the first two sentences.; ; ;50;Invalid Key. Press the letters "2yy";0T
+x;1;1; ;Press "2yy" to copy the first two sentences.; ; ;121;Invalid Key. Press the letters "yy";0T
+x;1;1; ;Press "2yy" to copy the first two sentences.; ; ;121;Invalid Key. Press the letter "y";0T
+x;1;1; ;To obtain "last-line" mode:; ;Press colon ":";58;Invalid key. Press colon ":"             ;0
+:;1;1; ;To switch to the file "otherfile", type the command;displayed below and press <ENTER>:;"e otherfile";10;Invalid. Type "e otherfile" <ENTER>;le otherfile
++
+
+cat > data_6b.$$ <<+
+"otherfile" [New] 0L, 0C written;1;1; ;You are now in the file called "otherfile".; ;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0
+x;1;1; ;To paste text above, press uppercase "P"; ; ;80;Invalid Key. Press uppercase "P";0 
+x;1;1; ;To paste text above, press uppercase "P"; ; ;80;Invalid Key. Press uppercase "P";P
++
+
+
+cat > data_7b.$$ <<+
+x;1;1; ;You have pasted in the two sentences from the;previous file ;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0
+x;1;1; ;You can use regular expression in your vi editor;to match patterns just like with other utilities.;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0
+x;1;1; ;Let's demonstrate how to do a simple;search and replace using regular expressions.;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0
+x;1;1; ;We need to go into last-line mode to enter a command;that will allow us to perform a search & replace ;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0
+x;1;1; ;To obtain "last-line" mode:; ;Press colon ":";58;Invalid key. Press colon ":"             ;0
+:;1;1; ;Enter the following command:; ;s/This/this/;10;Invalid. Type "s/This/this/" <ENTER>;ls/This/this/
+x;1;1; ;You should notice the first word is now lowercase.; ;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0t
+x;1;1; ;To globally change all occurences on a line,;you must add a g (i.e. s/This/this/g);Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0t
+x;1;1; ;To globally change all occurences on all lines use:;%s/This/this/g or 1,\$s/This/this/g;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0t
+x;1;1; ;To globally change all occurences & ignore case use:;%s/This/this/gi or 1,\$s/This/this/gi;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0t
+x;1;1; ;To learn more about the vi editor, visit the;website vim.org;Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0t
+x;1;1; ;If you are interested in using vi, it usually takes;a semester to get confortable with the editor :);Press <ENTER> to continue.;10;Invalid key. Press <ENTER>;0t
+x;1;1; ;This concludes the vi tutorial;Save your work & proceed to the Review Section.;Press <ENTER> to continue;10;Invalid Key. Press <ENTER>;0
+x;1;1; ;Let's save our work and exit vi;To access last-line mode:;Press colon ":";58;Invalid key. Press colon ":";0i
+:;1;1; ;To save and exit,;Type the letter "x" and press <ENTER>.; ;10;Invalid. Press "x" <ENTER>;lx
++
+
+
+cat > practise_1b.$$ <<+
+                              << VI PRACTISE EXERCISE >>
+
+
+We have automatically started the vi editor
+in order to edit a file for editing practise.
+
+Follow the instructions for each task listed below.
+
+Lines marked with a greater-than sign ">" indicate
+location where to perform work.
+
+Try to use <CTRL> keys to move cursor to desired
+location using least number of keystrokes.
+
+TASK	DESCRIPTION
+====    =============================================================
+1.	Enter the following the text "This is the first line" in the 
+	space below:
+	
+	>
+
+2.	Replace the word "Cats" with "Dogs" in the sentence below:
+
+	> I like cats. Cats are the best pets in the world!
+
+3.	Delete the block of text displayed below:
+
+	> Please delete this sentence.
+
+4.	Delete the last two words of the following sentence:
+
+	> This sentence is not correct most likely.
+
+5.	Make a copy of the following sentence and paste a copy
+	below the original sentence:
+
+	> I like to repeat myself!
+
+
+6.	Cut the text displayed below, use the GOTO
+        command to move the cursor to line 49, and paste the
+	text under task #7.
+
+	> This is a copy of task #6.
+
+7.	Once you have blocked text in task #6,
+	move it to the location directly below:
+
+	> 
+
+8.	Save your editing changes and exit the file
+        (the name of the file should remain the same).
+
+END OF TASKS
+
+============================================================
+
++
+
+### Banner Advising User to Exit & Maximize Telnet Window ###
+
+clear
+cat <<+
+*****************************************************************************
+*                                                                           *
+*  USING THE VI TEXT EDITOR                                                 *	
+*                                                                           *
+*  These tutorials are used for:                                            *
+*                                                                           *
+*       ULI101 students to get practice with the vi text editor...          *
+*                                                                           *
+*  Written by Murray Saul -  November 2001                                  *
+*  Updated by Murray Saul -  January 2006                                   *
+*  Updated by Michal Heidenreich - January 2008                             *
+*                                                                           *
+*****************************************************************************
+
+Press <ENTER> to continue or <CTRL><C> to exit
++
+
+read null
+
+
+### Banner (explanation of evaluation) ###
+
+clear
+cat <<+
+*****************************************************************************
+*                                                                           *
+*    ALL TUTORIALS HAVE THE FOLLOWING STRUCTURE:                            *
+*                                                                           *
+*    1. BASIC TUTORIAL        - Provides user to learn a skill              *
+*                                                                           *
+*    2. REVIEW TUTORIAL       - Reinforces learned skill with exercises     *
+*                                                                           * 
+*****************************************************************************
+
+Press <ENTER> to continue or <CTRL><C> to exit
+
++
+
+read null
+
+clear
+cat <<+
+*****************************************************************************
+*                                                                           * 
+*  TIPS FOR GETTING THE MOST OUT OF TUTORIALS:                              *
+*                                                                           *
+*    1. Have course notes available on your web browser                     *
+*       Try accessing vim.org on the Internet (vim - vi "improved")         *
+*                                                                           *
+*    2. Complete the entire tutorial                                        *   
+*                                                                           *
+*    3. Repeat the tutorial on a regular basis for review                   *
+*                                                                           *
+*    4. Try to use skills you have developed to accomplish other tasks      *
+*                                                                           *
+*****************************************************************************
+
+Press <ENTER> to continue or <CTRL><C> to exit
++
+
+
+#### Prompt User for Menu Item ###
+
+until [ $num -eq 3 ] 2> /dev/null
+do
+	clear
+	cat <<+
+
+        MAIN MENU
+
+1. USING THE VI TEXT EDITOR
+2. REVIEW EXERCISE
+3. EXIT TUTORIAL
+
++
+
+### Error Checking ###
+
+	printf "Please Enter a Number >> "
+	read num
+	while [ $num -le 0 -o $num -ge 4 ] 2> /dev/null
+	do
+		printf "Enter a number 1 to 3 >> "
+		read num
+	done
+
+        if [ "$num" -eq 3 ] 2> /dev/null
+                then
+
+				cd $HOME
+				rm .engineb  output.$$ data_?b.* 2> /dev/null
+
++
+ 
+			        clear
+cat <<+	
+*****************************************************
+*                                                   *
+*    This concludes the "online vi Tutorial".       *
+*          We hope you found is useful   :)         *
+*                                                   *
+*****************************************************
+
+
++
+			exit 0
+	fi
+### Case Structure Displaying Tutorial Level ###
+
+	case $num in
+
+### Basic Linux Tutorial Submenu ###
+
+	1)
+		until [ "$snum" = "2" ] 2> /dev/null
+		do
+			clear
+	       		cat <<+
+      USING THE VI TEXT EDITOR TUTORIAL MENU
+
+1.  BASIC OPERATIONS
+    - Launching vi Text Editor
+    - Saving / Exiting vi 
+    - Simple Text Editing
+    - Advanced Text Editing
+    - Using Regular Expressions
+
+2.  RETURN TO MAIN MENU
+
+
++
+
+### Error Checking ###
+
+		printf "Please Enter a Number >> "
+		read snum
+		while [ $snum -le 0 -o $snum -ge 3 ] 2> /dev/null
+		do
+			printf "Enter a number 1 to 2 >> "
+			read snum
+		done
+		case $snum in
+
+### BASIC SUBMENU 1 ###
+		1)
+			
+clear
+cat <<+
+This tutorial shows you how to use the
+vi editor.
+
+During this tutorial, you will be asked
+to type commands to acheive editing tasks when
+using the vi editor.
+
+Press <ENTER> to continue
++
+read null
+clear
+cat <<+
+"vi" is a text editor that is available on most
+Unix and Linux operating systems.
+
+Although it may take more time for a user
+to become comfortable using the vi editor
+as opposed to the "nled" or "pico" text editors,
+the vi editor has many useful editing commands
+which are designed for programmers.
+
+Press <ENTER> to continue
++
+read null
+clear
+cat <<+
+Here are some interesting features of vi:
+
+   - Ability to recover editing session to the last keystroke
+     (i.e. if "kicked" out of ssh/telnet session)
+
+   - Efficient editor for those that prefer to only use keyboard
+     for file editing
+
+   - Extensive set of editing/movement keys designed for programmers
+     including  ^ to move to first non-white space occurrence or
+                . to automatically repeat last editing command
+
+
+Press <ENTER> to continue
++
+read null
+clear
+cat <<+
+There are basically two reasons why people hate vi:
+
+   1. vi starts automatically in "command" mode
+      (as opposed to "insert" mode like nled or pico)
+
+   2. vi requires that the user memorize editing/movement keys
+      and use ESC key to return to command mode after editing
+
+I won't try to force you to switch to vi, but if try to learn
+another text editor like vi or emacs now, you will be more
+flexible with other editors when you graduate from this program.
+
+
+Press <ENTER> to continue
++
+read null
+clear
+cat <<+
+In order to launch the vi text editor, logon
+to your Unix or Linux system and issue
+the following command:
+
+	vi
+
++
+printf "\tENTER COMMAND HERE >> "
+read com1_1
+until [ "$com1_1" = "vi" ]
+do
+     printf "\thint: vi\n"
+     printf "\tPLEASE TRY AGAIN   >>  "
+     read com1_1
+done
+clear
+PS1='' # Clear shell prompt
+
+~/.engineb "data_1b.$$"
+if [ $? -eq 1 ]
+then
+	exit_script
+fi
+clear
+tput cup 1 1
+prompt_display=$(printf "[ ${USER}@$(hostname) $(pwd) ] ")
+printf "$prompt_display"
+tput cup 7 0
+cat <<+
+Well Done.
+
+You have created a file called "yourfile" although it does
+not contain any text and you have exited the vi application.
+
+You are back at the Unix command prompt. To start vi
+and edit an existing file, type the vi command followed by
+the existing filename.
+
+Issue the command "vi yourfile" at the above prompt.
++
+tput cup 1 $(($(expr length "$prompt_display") + 1))
+read com1_1
+until [ "$com1_1" = "vi yourfile" ] 2> /dev/null
+do
+     tput cup 21 1
+     printf "Invalid Entry"
+     tput cup 22 1
+     printf "Please retype \"vi yourfile\" above"
+     tput cup 1 $(($(expr length "$prompt_display") + 1))
+     printf "                                 "
+     tput cup 1 $(($(expr length "$prompt_display") + 1))
+     read com1_1
+done
+clear
+
+~/.engineb "data_2b.$$"
+if [ $? -eq 1 ]
+then
+	exit_script
+fi
+
+clear
+tput cup 1 1
+prompt_display=$(printf "[ ${USER}@$(hostname) $(pwd) ] ")
+printf "$prompt_display"
+tput cup 7 0
+cat <<+
+You have now "aborted" or exited your editing session
+without saving your changes since the last save that you
+performed.
+
+You should only abort your editing session if you have
+made a bad mistake, and you intentionally want to abort
+your editing session.
+
+To prove that you have lost any editing that you performed
+since you saved your work, edit your file "myfile" by issuing:
+
+	vi yourfile
++
+tput cup 1 $(($(expr length "$prompt_display") + 1))
+read com1_1
+until [ "$com1_1" = "vi yourfile" ] 2> /dev/null
+do
+     tput cup 21 1
+     printf "Invalid Entry"
+     tput cup 22 1
+     printf "Please retype \"vi yourfile\" above"
+     tput cup 1 $(($(expr length "$prompt_display") + 1))
+     printf "                                 "
+     tput cup 1 $(($(expr length "$prompt_display") + 1))
+     read com1_1
+done
+clear
+
+~/.engineb "data_3b.$$"
+if [ $? -eq 1 ]
+then
+	exit_script
+fi
+clear
+tput cup 1 1
+prompt_display=$(printf "[ ${USER}@$(hostname) $(pwd) ] ")
+printf "$prompt_display"
+tput cup 7 0
+cat <<+
+Well done!
+
+You have completed simple editing operations
+using the vi editor. You should be able to 
+create and edit simple C programs using this editor.
+
+The next section will show you how to perform more
+advanced editing techniques such as marking blocks of
+text in order to copy, move or delete them.
+
+In order to return to the file that you originally
+saved, enter the following command:
+
+	vi yourfile
++
+tput cup 1 $(($(expr length "$prompt_display") + 1))
+read com1_1
+until [ "$com1_1" = "vi yourfile" ] 2> /dev/null
+do
+     tput cup 21 1
+     printf "Invalid Entry"
+     tput cup 22 1
+     printf "Please retype \"vi yourfile\" above"
+     tput cup 1 $(($(expr length "$prompt_display") + 1))
+     printf "                                 "
+     tput cup 1 $(($(expr length "$prompt_display") + 1))
+     read com1_1
+done
+clear
+
+~/.engineb "data_4b.$$"
+if [ $? -eq 1 ]
+then
+	exit_script
+fi
+
+clear
+tput cup 1 1
+prompt_display=$(printf "[ ${USER}@$(hostname) $(pwd) ] ")
+printf "$prompt_display"
+tput cup 7 0
+cat <<+
+Before we end this tutorial, let's discuss two last
+topics:
+
+    - Copying and pasting text between documents
+
+    - Using regular expressions to perform global
+      search & replace.
+
+Let's start an editing session with another file
+with text already entered.
+
+Enter the following command:
+
+	vi mynewfile
++
+tput cup 1 $(($(expr length "$prompt_display") + 1))
+read com1_1
+until [ "$com1_1" = "vi mynewfile" ] 2> /dev/null
+do
+     tput cup 21 1
+     printf "Invalid Entry"
+     tput cup 22 1
+     printf "Please retype \"vi mynewfile\" above"
+     tput cup 1 $(($(expr length "$prompt_display") + 1))
+     printf "                                 "
+     tput cup 1 $(($(expr length "$prompt_display") + 1))
+     read com1_1
+done
+clear
+
+
+
+cp "data_5b.$$" "data_4b.$$"
+~/.engineb "data_4b.$$"
+
+~/.engineb "data_6b.$$"
+
+
+cp "data_7b.$$" "data_4b.$$"
+~/.engineb "data_4b.$$"
+
+
+if [ $? -eq 1 ]
+then
+	exit_script
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+clear
+cat <<+
+You have completed the vi tutorial.
+For additional practise, there is a file
+that has editing instructions that you
+can perform in the "actual vi" editor
+to practise what you have learned.
+
+Press <ENTER> to continue
++
+			read null
+			clear
+			cat <<+
+This completes the topic
+USING THE VI TEXT EDITOR
+
+Please proceed with REVIEW TUTORIAL
+
+Press <ENTER> to return to the 
+USING THE VI TEXT EDITOR TUTORIAL MENU
++
+			read null
+;;
+
+			esac
+		done
+		unset snum
+	;;
+
+### Intermediate Tutorial Level ###
+
+2)
+	until [ "$snum" = "2" ] 2> /dev/null
+	do
+	        clear
+		cat <<+
+    PRACTICAL APPLICATION TUTORIAL MENU
+
+1.  PRACTICE EDITING SESSION USING VI
+2.  RETURN TO MAIN MENU
+
++
+
+### Error Checking ###
+
+	printf "Please Enter a Number >> "
+	read snum
+
+	while [ $snum -le 0 -o $snum -ge 3 ] 2> /dev/null
+	do
+		printf "Enter a number 1 to 2 >> "
+		read snum
+	done
+
+
+		case $snum in
+
+### FIRST PRACTICAL APPLICATION SUBMENU ###
+
+		1)
+			clear
+			cat <<+	
+For additional practise, there is a file
+that has editing instructions that you
+can perform in the "actual vi" editor
+to practise what you have learned.
+
+Press <ENTER> to start "vi" editing session
++
+	read null
+	vi $HOME/practise_1b.$$
+
+		clear
+		cat <<+
+You have completed the
+PRACTICAL EDITING SESSION USING VI
+
+You can proceed to Send Feedback and exit
+this tutorial
+ 
+Press <ENTER> to return to the REVIEW TUTORIAL MENU    
++
+		read null
+;;
+		esac
+		done
+		unset snum
+
+;;
+esac
+done
