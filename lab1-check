@@ -70,7 +70,7 @@ echo -n "Checking for network connectivity: " | tee -a $logfile
 check "wget -qO- http://google.ca &> /dev/null" "Your internet connection doesn't seem to work. Check your network adapter settings and test by pinging google.ca. It should be successful." | tee -a $logfile
 
 # Check if /home/user/bin directory was created
-echo -n "Checking that \"/home/$user/bin\" directory was created:" | tee -a $logfile
+echo -n "Checking that \"/home/$user/bin\" directory was created: " | tee -a $logfile
 check "test -d \"/home/$user/bin\"" "This program did NOT detect that the \"/$user/bin\" directory was created. Please create this directory, and re-run this shell script." | tee -a $logfile
 
 warningcount=`grep -c "WARNING" $logfile`
