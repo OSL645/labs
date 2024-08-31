@@ -56,7 +56,6 @@ hostnamectl | tee -a $logfile
 echo -n "              Date: "  | tee -a $logfile
 date | tee -a $logfile
 
-# Start checking of week2 tutorial
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
 
