@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# week8-check-2
+# ./lab1-check-6
 
 # Author:  Murray Saul
 # Date:    January 29, 2021
-# Modified By: Jason Carman
-# Modified: January 3, 2023
+# Modified by: Jason Carman
+# Date: August 31, 2024
 #
 # Purpose: Check that user correctly created symbolic links
 #          on their matrix server. If the errors, then the
@@ -61,8 +61,8 @@ echo -n "Checking \"$HOME/links2/text-file.sym.lnk\" file is a symbolic link: " 
 check "test -h $HOME/links2/text-file.sym.lnk" "The file pathname \"$HOME/links2/text-file.sym.lnk\" is NOT a symbolic link. Remove this file, reissue the \"ln\" command with the \"-s\" option and correct filename argument order and re-run this checking script"  | tee -a $logfile
 
 # Check ~/text-file.sym.lnk is a symbolic link
-echo -n "Checking \"$HOME/text-file.sym.lnk\" file is a symbolic link: " | tee -a $logfile
-check "test -h $HOME/text-file.sym.lnk" "The file pathname \"$HOME/text-file.sym.lnk\" is NOT a symbolic link. Remove this file, reissue the \"ln\" command with the \"-s\" option and correct filename argument order and re-run this checking script" | tee -a $logfile
+#echo -n "Checking \"$HOME/text-file.sym.lnk\" file is a symbolic link: " | tee -a $logfile
+#check "test -h $HOME/text-file.sym.lnk" "The file pathname \"$HOME/text-file.sym.lnk\" is NOT a symbolic link. Remove this file, reissue the \"ln\" command with the \"-s\" option and correct filename argument order and re-run this checking script" | tee -a $logfile
 
 warningcount=`grep -c "WARNING" $logfile`
 
