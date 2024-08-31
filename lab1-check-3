@@ -38,12 +38,6 @@ set -o history
 
 clear  # Clear the screen
 
-# Make certain user is logged in as root
-if [ $(whoami) != "root" ]; then
-  echo "Note: You are required to run this program with elevated privileges.  Use sudo."
-  exit 1
-fi
-
 # Check directory osl640xx/notes created in home directory
 echo -n "Checking \"osl640xx/notes\" directory has been created in your home directory: " | tee -a $logfile
 check "test -d $HOME/osl640xx/notes" "The directory pathname \"$HOME/osl640xx/notes\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"osl640xx/notes\" in your home directory and re-run this checking script" | tee -a $logfile

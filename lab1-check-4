@@ -38,12 +38,6 @@ set -o history
 
 clear  # Clear the screen
 
-# Make certain user is logged in as root
-if [ $(whoami) != "root" ]; then
-  echo "Note: You are required to run this program with elevated privileges.  Use sudo."
-  exit 1
-fi
-
 # Start checking lab
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
