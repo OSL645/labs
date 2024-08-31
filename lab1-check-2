@@ -39,10 +39,10 @@ set -o history
 clear  # Clear the screen
 
 # Make certain user is logged in as root
-if [ $(whoami) != "root" ]; then
-  echo "Note: You are required to run this program with elevated privileges.  Use sudo."
-  exit 1
-fi
+#if [ $(whoami) != "root" ]; then
+#  echo "Note: You are required to run this program with elevated privileges.  Use sudo."
+#  exit 1
+#fi
 
 # System information gathering
 echo "OSL645 Lab 1B Check Script" > $logfile
