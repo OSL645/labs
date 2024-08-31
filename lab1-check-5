@@ -1,0 +1,92 @@
+#!/bin/bash
+
+# ./lab1-check-5
+
+# Author:  Murray Saul
+# Date:    January 8, 2020
+# Modified by: Jason Carman
+# Date: August 31, 2024
+#
+# Purpose: Check that user correctly created hard links
+#          on their matrix server. If the errors, then the
+#          checking script will provide feedback to correct the problem.
+#          If no errors, then a congratulatory message will be displayed
+#          so that the user can proceed to the next section.
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab1b_output.txt
+
+function check(){
+
+  if eval $1; then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     echo $2 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Start checking lab
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+# Check directory links created in home directory
+echo -n "Checking \"links\" directory has been created in your home directory: " | tee -a $logfile
+check "test -d $HOME/links" "The directory pathname \"$HOME/links\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"links\" in your home directory and re-run this checking script"| tee -a $logfile
+
+# Check ~/links/data-file.txt exists
+echo -n "Checking \"$HOME/links/data-file.txt\" file exists: " | tee -a $logfile
+check "test -f $HOME/links/data-file.txt" "The text file pathname \"$HOME/links/data-file.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Create the file \"$HOME/links/data-file.txt\" file and re-run this checking script" | tee -a $logfile
+
+# Check ~/links/data-file.hard.lnk exists
+echo -n "Checking \"$HOME/links/data-file.hard.lnk\" file exists: " | tee -a $logfile
+check "test -f $HOME/links/data-file.hard.lnk" "The text file pathname \"$HOME/links/data-file.hard.lnk\" does NOT exist. Check if you mispelled file pathname, used uppercase letters by mistake, or didn't properly issue the \"ln\" command with the filenames in the correct argument order. Reissue the \"ln\" command with the correct file pathnames (in the correct order)file and re-run this checking script" | tee -a $logfile
+
+# Check ~/data-file.hard.lnk exists
+echo -n "Checking \"$HOME/data-file.hard.lnk\" file exists: " | tee -a $logfile
+check "test -f $HOME/data-file.hard.lnk" "The text file pathname \"$HOME/data-file.hard.lnk\" does NOT exist. Check if you mispelled file pathname, used uppercase letters by mistake, or didn't properly issue the \"ln\" command with the filenames in the correct argument order. Reissue the \"ln\" command with the correct file pathnames (in the correct order)file and re-run this checking script" | tee -a $logfile
+
+# Obtain i-node numbers from files
+original=$(ls -i $HOME/links/data-file.txt | cut -d" " -f1)
+hardLink=$(ls -i $HOME/links/data-file.hard.lnk | cut -d" " -f1)
+
+# Check original file and hard link file have same i-node numbers
+echo -n "Checking $HOME/links/data-file.txt\" and \"$HOME/links/data-file.hard.lnk\" have same i-node: " | tee -a $logfile
+check "test $original -eq $hardLink" "The i-nodes are NOT identical for the \"$HOME/links/data-file.txt\" and \"$HOME/links/data-file.hard.lnk\" files. Remove and recreate the \"$HOME/links/data-file.txt\" file and issue the \"ln\" command with the file pathnames in the correct order and re-run this checking script" | tee -a $logfile
+
+# Obtain i-node number from file
+original=$(ls -i $HOME/links/data-file.txt | cut -d" " -f1)
+# Obtain i-node number from file
+hardLink=$(ls -i $HOME/data-file.hard.lnk | cut -d" " -f1)
+
+# Check original file and hard link file have same i-node numbers
+echo -n "Checking $HOME/links/data-file.txt\" and \"$HOME/data-file.hard.lnk\" have same i-node: " | tee -a $logfile
+check "test $original -eq $hardLink" "The i-nodes are NOT identical for the \"$HOME/links/data-file.txt\" and \"$HOME/data-file.hard.lnk\" files. Issue the \"ln\" command with the file pathnames in the correct order and re-run this checking script" | tee -a $logfile
+
+warningcount=`grep -c "WARNING" $logfile`
+
+echo | tee -a $logfile
+echo | tee -a $logfile
+if [ $warningcount == 0 ]; then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 1 - Check 5." | tee -a $logfile
+  echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
