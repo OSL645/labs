@@ -16,7 +16,7 @@
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
 
-logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab1b_output.txt
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab1-check-2_output.txt
 
 function check(){
 
@@ -38,23 +38,17 @@ set -o history
 
 clear  # Clear the screen
 
-
 # System information gathering
-echo "OSL645 Lab 1B Check Script" > $logfile
-echo | tee -a $logfile
-echo "SYSTEM INFORMATION:" | tee -a $logfile
+echo "OSL645 Lab 1 Check 2 Script" > $logfile
+
+# Add a unique identifier to the logfile
+read -p "Please enter your Seneca ID (ie jmcarman): " user
+echo "Unique Identifer: $(echo $user | sha256sum)" | tee -a $logfile
+echo "------------------------------------" | tee -a $logfile
 
 # Start checking lab1
 echo | tee -a $logfile
 echo "CHECKING YOUR LAB 1 WORK:" | tee -a $logfile
-
-# Check that the user is created
-read -p "Please enter your Seneca ID (ie jmcarman): " user
-echo "Unique Identifer: $(echo $user | sha256sum)" | tee -a $logfile
-echo "------------------------------------" | tee -a $logfile
-hostnamectl | tee -a $logfile
-echo -n "              Date: "  | tee -a $logfile
-date | tee -a $logfile
 
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
