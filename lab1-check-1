@@ -51,18 +51,16 @@ echo | tee -a $logfile
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m" | tee -a $logfile
 
 # Add a unique identifier to the logfile
-#read -p "Please enter your Seneca ID (ie jmcarman): " user
-echo "Unique Identifer: $(echo $USER | sha256sum)" | tee -a $logfile
+read -p "Please enter your Seneca ID (ie jmcarman): " user
+echo "Unique Identifer: $(echo $user | sha256sum)" | tee -a $logfile
 echo "------------------------------------" | tee -a $logfile
 hostnamectl | tee -a $logfile
 echo -n "              Date: "  | tee -a $logfile
 date | tee -a $logfile
 
-user=$USER
-
 # Check that the user is created
 echo -n "Checking that user $user was created: " | tee -a $logfile
-check "echo $USER &> /dev/null" "This program did NOT detect that the user $user was created. Please create this user, and re-run this shell script." | tee -a $logfile
+check "echo $user &> /dev/null" "This program did NOT detect that the user $user was created. Please create this user, and re-run this shell script." | tee -a $logfile
 
 # Check version of Linux distribution
 echo -n "Checking Correct Linux Distribution: " | tee -a $logfile
