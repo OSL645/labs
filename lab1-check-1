@@ -51,8 +51,8 @@ echo | tee -a $logfile
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m" | tee -a $logfile
 
 # Add a unique identifier to the logfile
-read -p "Please enter your Seneca ID (ie jmcarman): " user
-echo "Unique Identifer: $(echo $user | sha256sum)" | tee -a $logfile
+#read -p "Please enter your Seneca ID (ie jmcarman): " user
+echo "Unique Identifer: $(echo $USER | sha256sum)" | tee -a $logfile
 echo "------------------------------------" | tee -a $logfile
 hostnamectl | tee -a $logfile
 echo -n "              Date: "  | tee -a $logfile
