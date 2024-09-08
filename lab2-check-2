@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# week3-check-2
+
+# Author:  Murray Saul
+# Date:    January 15, 2020
+# Modified By: Jason Carman
+# Modified: September 8, 2024
+#
+# Purpose: Check that user correctly issued some Linux file management
+#          commands. This shell script will exit if errors,
+#          but will provide feedback to correct the problem.
+#          If no errors, then a congratulatory message will be displayed
+#          so that the user can proceed to the next section.
+
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab2-check-2_output.txt
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+function check(){
+
+  if eval $1
+  then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     echo $2 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+#
+if [ $PWD != $HOME ]; then
+   echo -e "\033[1mERROR:\033[0m"
+   echo
+   echo "You are NOT located in your HOME directory."
+   echo -e "(i.e. \033[1m$HOME\033[0m )"
+   echo
+   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+   echo -e "and confirm that you are"
+   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+   echo "and re-run this checking script."
+   echo
+   echo
+
+   exit 1
+fi
+
+# System information gathering
+echo "OSL645 Lab 2 Check 2 Script" > $logfile
+
+# Add a unique identifier to the logfile
+read -p "Please enter your Seneca ID (ie jmcarman): " user
+echo "Unique Identifer: $(echo $user | sha256sum)" | tee -a $logfile
+echo "------------------------------------" | tee -a $logfile
+
+# Start checking lab2
+echo | tee -a $logfile
+echo "CHECKING YOUR LAB 2 WORK:" | tee -a $logfile
+
+# Start checking week3 tutorial
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+# Check your home directory contains file called ls
+echo -n "Checking your home directory contains copied file \"ls\": " | tee -a $logfile
+check "test -f $HOME/ls" "The regular file pathname \"$HOME/ls\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Reissue the Linux command to copy the /bin/ls file to your home directory and re-run this checking script" | tee -a $logfile
+
+# Check your home directory contains file called ls
+echo -n "Checking your examples directory contains copied file \"ls\": " | tee -a $logfile
+check "test -f $HOME/tutorial3/practice/examples/ls" "The regular file pathname \"$HOME/tutorial3/practice/examples/ls\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Reissue the Linux command to copy the /bin/ls file to your current directory (which should have been set to \"examples\") and re-run this checking script" | tee -a $logfile
+
+# Check your home directory contains file called ls.bk
+echo -n "Checking your examples directory contains copied file \"ls.bk\": " | tee -a $logfile
+check "test -f $HOME/tutorial3/practice/examples/ls.bk" "The regular file pathname \"$HOME/tutorial3/practice/examples/ls.bk\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Reissue the Linux command to copy the /bin/ls file to your current directory (which should have been set to \"examples\") and re-run this checking script" | tee -a $logfile
+
+warningcount=$(grep -c "WARNING" $logfile)
+
+echo | tee -a $logfile
+echo | tee -a $logfile
+
+if [ $warningcount == 0 ]; then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 2 - Check 2." | tee -a $logfile
+  echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
