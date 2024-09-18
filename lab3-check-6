@@ -122,7 +122,7 @@ echo | tee -a $logfile
 if [ $warningcount == 0 ]; then
   echo "Congratulations!" | tee -a $logfile
   echo | tee -a $logfile
-  echo "You have successfully completed Lab 3 - Check 1." | tee -a $logfile
+  echo "You have successfully completed Lab 3 - Check 6." | tee -a $logfile
   echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
   echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
   echo
