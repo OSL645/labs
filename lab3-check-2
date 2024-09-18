@@ -1,0 +1,134 @@
+#!/bin/bash
+
+# lab3-check-2
+
+# Author:  Murray Saul
+# Date:    January 21, 2020
+# Modified By: Jason Carman
+# Modified: September 18, 2024
+#
+# Purpose: Check that user correctly created specific regular
+#          files with the specified directory structure.
+#          This shell script will exit if errors,
+#          but will provide feedback to correct the problem.
+#          If no errors, then a congratulatory message will be displayed
+#          so that the user can proceed to the next section.
+
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab3-check-2_output.txt
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+function check(){
+
+  if eval $1; then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     echo $2 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+if [ $PWD != $HOME ]; then
+   echo -e "\033[1mERROR:\033[0m"
+   echo
+   echo "You are NOT located in your HOME directory."
+   echo -e "(i.e. \033[1m$HOME\033[0m )"
+   echo
+   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+   echo -e "and confirm that you are"
+   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+   echo "and re-run this checking script."
+   echo
+   echo
+
+   exit 1
+fi
+
+# System information gathering
+echo "OSL645 Lab 3 Check 2 Script" > $logfile
+
+# Add a unique identifier to the logfile
+read -p "Please enter your Seneca ID (ie jmcarman): " user
+echo "Unique Identifer: $(echo $user | sha256sum)" | tee -a $logfile
+echo "------------------------------------" | tee -a $logfile
+
+# Start checking lab
+echo | tee -a $logfile
+echo "CHECKING YOUR LAB 3 WORK:" | tee -a $logfile
+
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+# Check regular file memo1.txt created in memos directory
+echo -n "Checking \"memo1.txt\" regular file created in \"memos\" directory: " | tee -a $logfile
+check "test -f $HOME/documents/memos/memo1.txt" "The file pathname \"$HOME/documents/memos/memo1.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"memo1.txt\" in your \"memos\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file memo2.txt created in memos directory
+echo -n "Checking \"memo2.txt\" regular file created in \"memos\" directory: "
+check "test -f $HOME/documents/memos/memo2.txt" "The file pathname \"$HOME/documents/memos/memo2.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"memo2.txt\" in your \"memos\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file memo3.txt created in memos directory
+echo -n "Checking \"memo3.txt\" regular file created in \"memos\" directory: "
+check "test -f $HOME/documents/memos/memo3.txt" "The file pathname \"$HOME/documents/memos/memo3.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"memo3.txt\" in your \"memos\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file report1.txt created in reports directory
+echo -n "Checking \"report1.txt\" regular file created in \"reports\" directory: "
+check "test -f $HOME/documents/reports/report1.txt" "The file pathname \"$HOME/documents/reports/report1.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"report1.txt\" in your \"reports\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file report2.txt created in reports directory
+echo -n "Checking \"report2.txt\" regular file created in \"reports\" directory: "
+check "test -f $HOME/documents/reports/report2.txt" "The file pathname \"$HOME/documents/reports/report2.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"report2.txt\" in your \"reports\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file contract1.txt created in contracts directory
+echo -n "Checking \"contract1.txt\" regular file created in \"contracts\" directory: "
+check "test -f $HOME/documents/contracts/contract1.txt" "The file pathname \"$HOME/documents/contracts/contract1.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"contract1.txt\" in your \"contracts\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file contract2.txt created in contracts directory
+echo -n "Checking \"contract2.txt\" regular file created in \"contracts\" directory: "
+check "test -f $HOME/documents/contracts/contract2.txt" "The file pathname \"$HOME/documents/contracts/contract2.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"contract2.txt\" in your \"contracts\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file contract3.txt created in contracts directory
+echo -n "Checking \"contract3.txt\" regular file created in \"contracts\" directory: "
+check "test -f $HOME/documents/contracts/contract3.txt" "The file pathname \"$HOME/documents/contracts/contract3.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"contract3.txt\" in your \"contracts\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file linux.txt created in clients directory
+echo -n "Checking \"linux.txt\" regular file created in \"clients\" directory: "
+check "test -f $HOME/clients/linux.txt" "The file pathname \"$HOME/documents/clients/linux.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"linux.txt\" in your \"clients\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file unix.txt created in clients directory
+echo -n "Checking \"unix.txt\" regular file created in \"clients\" directory: "
+check "test -f $HOME/clients/unix.txt" "The file pathname \"$HOME/documents/clients/unix.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"unix.txt\" in your \"clients\" directory and re-run this checking script" | tee -a $logfile
+
+# Check regular file seneca.txt created in vendors directory
+echo -n "Checking \"seneca.txt\" regular file created in \"vendors\" directory: "
+check "test -f $HOME/vendors/seneca.txt" "The file pathname \"$HOME/documents/vendors/seneca.txt\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the empty regular file \"seneca.txt\" in your \"vendors\" directory and re-run this checking script" | tee -a $logfile
+
+warningcount=$(grep -c "WARNING" $logfile)
+
+echo | tee -a $logfile
+echo | tee -a $logfile
+
+if [ $warningcount == 0 ]; then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 3 - Check 1." | tee -a $logfile
+  echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
