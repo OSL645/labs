@@ -72,23 +72,13 @@ echo "CHECKING YOUR LAB 3 WORK:" | tee -a $logfile
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
 
-# Check "hello.bash" shell script was created in home directory
-echo -n "Checking \"hello.bash\" shell script file has been created in your home directory: " | tee -a $logfile
-check "test -f $HOME/hello.bash" "The file pathname \"$HOME/hello.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"hello.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
+# Check "hello.bash" shell script was created
+echo -n "Checking \"hello.bash\" shell script file has been created: " | tee -a $logfile
+check "test -f $HOME/lab-3-*/hello.bash" "The file pathname \"$HOME/lab-3-*/hello.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Use Git to clone your repo and re-run this checking script\n" | tee -a $logfile
 
 # Check "hello.bash" shell script (in your home directory) has execute permissions
 echo -n "Checking \"hello.bash\" shell script file has execute permissions: " | tee -a $logfile
-check "test -x $HOME/hello.bash" "The shell script pathname \"$HOME/hello.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"hello.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
-
-# Check "hello.bash" shell script contains "she-bang" line at TOP of file
-# Notice that an extended regular expression is used to permit one or more spaces
-# betweeh #! and file pathname to the bash shell
-
-# echo -n "Checking \"hello.bash\" shell script file contains \"she-bang\" line on first line: "
-# check "head -1 $HOME/hello.bash | egrep -sq \"^\#![ ]{1,}/bin/bash\"" "Your shell script \"$HOME/hello.bash\" does NOT contain the she-bang line    #!/bin/bash\nstarting at the BEGINNING of the TOP line (i.e. line #1). Edit your Bash shell script to make corrections and re-run this checking script.\n"
-
-# Create the temporary BENCHMARK output file of hello.bash for comparison purposes
-# Notice that the "Here Document" is used to create this file with redirection 
+check "test -x $HOME/lab-3-*/hello.bash" "The shell script pathname \"$HOME/lab-3-*/hello.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"hello.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
 
 cat > /tmp/compare.$$ <<+
 
@@ -103,7 +93,7 @@ The current user home directory is: $HOME
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/hello.bash > /tmp/student.$$
+$HOME/lab-3-*/hello.bash > /tmp/student.$$
 
 # Check student's "hello.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output
