@@ -1,17 +1,21 @@
 #!/bin/bash
 
-# week5-check-2
+# t4-check-2
 
 # Author:  Murray Saul
 # Date:    January 17, 2021
-# Modified By: Jason Carman
-# Modified: January 3, 2023
+# Modified by:	Jason Carman
+# Modified:	December 27, 2023
 #
 # Purpose: Check that user correctly removed temporary text files
 #          in their ~/redirect directory. If there are errors
 #          users will be provided feedback to correct the problem.
 #          If no errors, then a congratulatory message will be displayed
 #          so that the user can proceed to the next section.
+#
+# License: LGPL version 3
+# Link:    https://www.gnu.org/licenses/lgpl.html
+#
 
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
@@ -58,6 +62,7 @@ clear  # Clear the screen
 #   exit 1
 # fi
 
+
 # Start checking of week5 tutorial
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
@@ -65,6 +70,7 @@ echo
 # Check directory "redirect" created in home directory
 echo -n "Checking \"$HOME/redirect\" directory has been created: "
 check "test -d $HOME/redirect" "The directory pathname \"$HOME/redirect\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"uli101xx\" in your home directory and re-run this checking script"
+
 
 # Check ~/redirect/output.txt file exists
 echo -n "Checking \"$HOME/redirect/output.txt\" text file has been removed: "
@@ -122,11 +128,16 @@ check "! test -f $HOME/redirect/myoutput.txt" "The text file pathname \"$HOME/re
 echo -n "Checking \"$HOME/redirect/line2.txt\" text file has been removed: "
 check "! test -f $HOME/redirect/line2.txt" "The text file pathname \"$HOME/redirect/line2.txt\" still exists. Remove that temporary text file and re-run this checking script"
 
-. /home/osl640/duedates.txt
 
-weekDueDate=$t05
+. /home/jason.carman/duedates.txt
 
-/home/jason.carman/.hidden/transmogrify $USER 5 2 $(date +%s)
+weekDueDate=$t04
+
+src=$0
+
+export src
+
+/home/jason.carman/tutorials/source
 
 if [ $(date +%s) -le $weekDueDate ]
 then
@@ -135,15 +146,17 @@ else
    label="LATE "
 fi
 
-echo "${label}Week5-check-2 Check Completed for: $USER" | mail -s "${label}Week5-check-2 Successfully Completed" $USER@myseneca.ca  2> /dev/null
-echo "${label}Week5-check-2 Completed for: $USER" | mail -s "${label}Week5-check-2 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
+echo "${label}tutorial4-check-2 Check Completed for: $USER" | mail -s "${label}tutorial4-check-2 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}tutorial4-check-2 Completed for: $USER" | mail -s "${label}tutorial4-check-2 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
 
 if [ $(date +%s) -le $weekDueDate ]
 then
    echo
    echo "Congratulations!"
    echo
-   echo  "You have passed the week5-check-2 script"
+   echo  "You have passed the tutorial4-check-2 script"
    echo  "This means that you properly removed those temporary text files :)"
    echo
    echo  "An email has been sent to your Seneca Polytechnic email account"
@@ -154,7 +167,7 @@ then
    echo
 else
    echo
-   echo  "You have passed the week5-check-2 script"
+   echo  "You have passed the tutorial4-check-2 script"
    echo  "This means that you properly removed those temporary text files :)"
    echo
    echo  "UNFORTUNATELY, THE DUE DATE FOR THIS TUTORIAL HAS PASSED"

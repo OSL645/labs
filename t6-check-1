@@ -1,17 +1,21 @@
 #!/bin/bash
 #
-# week8-check-3
+# t6-check-3
 
 # Author:  Murray Saul
 # Date:    January 29, 2021
-# Modified By: Jason Carman
-# Modified: January 3, 2023
+# Modified by:	Jason Carman
+# Modified:	December 27, 2023
 #
 # Purpose: Check that user correctly created persistent aliases
 #          on their matrix server. If the errors, then the
 #          checking script will provide feedback to correct the problem.
 #          If no errors, then a congratulatory message will be displayed
 #          so that the user can proceed to the next section.
+#
+# License: LGPL version 3
+# Link:    https://www.gnu.org/licenses/lgpl.html
+#
 
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
@@ -56,6 +60,7 @@ clear  # Clear the screen
 #   exit 1
 # fi
 
+
 # Start checking week8 tutorial
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
@@ -88,11 +93,15 @@ check "test $match -ne 0" "The alias called \"lh\" does NOT exist. Issue the \"a
 echo -n "Checking that \"lh\" has been added to the \"~/.bashrc\" startup file: "
 check "grep -sq 'lh\=' ~/.bashrc" "The \"$HOME/.bashrc\" startup file does NOT contain the Linux command to create the \"lh\" alias. Make corrections and re-run this checking script"
 
-. /home/osl640/duedates.txt
+. /home/jason.carman/duedates.txt
 
-weekDueDate=$t08
+weekDueDate=$t06
 
-/home/jason.carman/.hidden/transmogrify $USER 8 3 $(date +%s)
+src=$0
+
+export src
+
+/home/jason.carman/tutorials/source
 
 if [ $(date +%s) -le $weekDueDate ]
 then
@@ -101,15 +110,17 @@ else
    label="LATE "
 fi
 
-echo "${label}Week8-check-3 Check Completed for: $USER" | mail -s "${label}Week8-check-3 Successfully Completed" $USER@myseneca.ca  2> /dev/null
-echo "${label}Week8-check-3 Completed for: $USER" | mail -s "${label}Week8-check-3 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
+echo "${label}tutorial6-check-1 Check Completed for: $USER" | mail -s "${label}tutorial6-check-1 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}tutorial6-check-1 Completed for: $USER" | mail -s "${label}tutorial6-check-1 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
 
 if [ $(date +%s) -le $weekDueDate ]
 then
    echo
    echo "Congratulations!"
    echo
-   echo  "You have passed the week8-check-3 script"
+   echo  "You have passed the tutorial6-check-1 script"
    echo  "This means that you properly created a persistent aliases"
    echo  "in your Matrix account :)"
    echo
@@ -121,7 +132,7 @@ then
    echo
 else
    echo
-   echo  "You have passed the week8-check-3 script"
+   echo  "You have passed the tutorial6-check-1 script"
    echo  "This means that you properly created a persistent aliases"
    echo  "in your Matrix account :)"
    echo

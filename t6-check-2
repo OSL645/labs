@@ -1,15 +1,19 @@
 #!/bin/bash
 
-# week10-check-3
+# t6-check-2
 
 # Author:  Murray Saul
 # Date:    March 3, 2021
-# Modified By: Jason Carman
-# Modified: January 3, 2023
+# Modified by:	Jason Carman
+# Modified:	December 27, 2023
 #
 # Purpose: Verify that user created a shell scripts to demonstrate
 #          command substitution and match operations
 #          
+#
+# License: LGPL version 3
+# Link:    https://www.gnu.org/licenses/lgpl.html
+#
 
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
@@ -102,11 +106,15 @@ check "test -f $HOME/dog-years.bash" "The file pathname \"$HOME/dog-years.bash\"
 echo -n "Checking \"dog-years.bash\" shell script file has execute permissions: "
 check "test -x $HOME/dog-years.bash" "The shell script pathname \"$HOME/dog-years.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"dog-years.bash\" shell script file in your home directory and re-run this checking script\n"
 
-. /home/osl640/duedates.txt
+. /home/jason.carman/duedates.txt
 
-weekDueDate=$t10
+weekDueDate=$t06
 
-/home/jason.carman/.hidden/transmogrify $USER 10 3 $(date +%s)
+src=$0
+
+export src
+
+/home/jason.carman/tutorials/source
 
 if [ $(date +%s) -le $weekDueDate ]
 then
@@ -115,15 +123,17 @@ else
    label="LATE "
 fi
 
-echo "${label}Week10-check-3 Check Completed for: $USER" | mail -s "${label}Week10-check-3 Successfully Completed" $USER@myseneca.ca  2> /dev/null
-echo "${label}Week10-check-3 Completed for: $USER" | mail -s "${label}Week10-check-3 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
+echo "${label}tutorial6-check-2 Check Completed for: $USER" | mail -s "${label}tutorial6-check-2 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}tutorial6-check-2 Completed for: $USER" | mail -s "${label}tutorial6-check-2 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
 
 if [ $(date +%s) -le $weekDueDate ]
 then
    echo
    echo "Congratulations!"
    echo
-   echo  "You have passed the week10-check-3 script"
+   echo  "You have passed the tutorial6-check-2 script"
    echo  "This means that you correctly created and ran your shell scripts"
    echo  "using command substitution and math operations    :)"
    echo
@@ -135,7 +145,7 @@ then
    echo
 else
    echo
-   echo  "You have passed the week10-check-3 script"
+   echo  "You have passed the tutorial6-check-2 script"
    echo  "This means that you correctly created and ran your shell scripts"
    echo  "using command substitution and math operations    :)"
    echo

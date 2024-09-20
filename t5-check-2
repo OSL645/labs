@@ -1,17 +1,21 @@
 #!/bin/bash
 
-# week6-check-2
+# t5-check-2
 
 # Author:  Murray Saul
 # Date:    January 27, 2020
-# Modified By: Jason Carman
-# Modified: January 3, 2023
+# Modified by:	Jason Carman
+# Modified:	December 27, 2023
 #
 # Purpose: Check that the user copied the files correctly
 #          This shell script will exit if errors, but will provide
 #          feedback to correct the problem.
 #          If no errors, then a congratulatory message will be displayed
 #          so that the user can proceed to the next section.
+#
+# License: LGPL version 3
+# Link:    https://www.gnu.org/licenses/lgpl.html
+#
 
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
@@ -56,9 +60,11 @@ clear  # Clear the screen
 #   exit 1
 # fi
 
+
 # Start checking week6 tutorial
 echo  "CHECKING YOUR WORK:"
 echo
+
 
 # Check directory ~/remote directory created
 echo -n "Checking \"~/remote\" directory has been created: "
@@ -76,11 +82,16 @@ check "test -f $HOME/mytextfile.txt" "The file pathname \"$HOME/mytextfile.txt\"
 echo -n "Checking that remotely copied file \"~/remote/different.txt\" exists: "
 check "test -f $HOME/remote/different.txt" "The file pathname \"$HOME/remote/different.txt\" does NOT exist. Use the scp command to properly copy this file to the ~/remote directory as a different filename and re-run this checking script"
 
-. /home/osl640/duedates.txt
 
-weekDueDate=$t06
+. /home/jason.carman/duedates.txt
 
-/home/jason.carman/.hidden/transmogrify $USER 6 2 $(date +%s)
+weekDueDate=$t05
+
+src=$0
+
+export src
+
+/home/jason.carman/tutorials/source
 
 if [ $(date +%s) -le $weekDueDate ]
 then
@@ -89,15 +100,17 @@ else
    label="LATE "
 fi
 
-echo "${label}Week6-check-2 Check Completed for: $USER" | mail -s "${label}Week6-check-2 Successfully Completed" $USER@myseneca.ca  2> /dev/null
-echo "${label}Week6-check-2 Completed for: $USER" | mail -s "${label}Week6-check-2 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
+echo "${label}tutorial5-check-2 Check Completed for: $USER" | mail -s "${label}tutorial5-check-2 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}tutorial5-check-2 Completed for: $USER" | mail -s "${label}tutorial5-check-2 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+
 
 if [ $(date +%s) -le $weekDueDate ]
 then
    echo
    echo "Congratulations!"
    echo
-   echo  "You have passed the week6-check-2 script"
+   echo  "You have passed the tutorial5-check-2 script"
    echo  "This means that you properly copied that file from your"
    echo  "local computer to your remote Linux server."
    echo
@@ -109,7 +122,7 @@ then
    echo
 else
    echo
-   echo  "You have passed the week6-check-2 script"
+   echo  "You have passed the tutorial5-check-2 script"
    echo  "This means that you properly copied that file from your"
    echo  "local computer to your remote Linux server."
    echo

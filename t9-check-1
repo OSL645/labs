@@ -1,18 +1,21 @@
 #!/bin/bash
 
-# week12-check-1
+# t9-check-1
 
 # Author:  Murray Saul
 # Date:    March 21, 2021
-# Modified By: Jason Carman
-# Modified: January 3, 2023
+# Modified by:	Jason Carman
+# Modified:	December 4, 2023
 #
-# Purpose: Verify that user created a shell script "hello" exists in
-#          their home directory and has execute permissions
+# Purpose: Verify that user created more advanced shell scripts
 #          
 #          This script also checks to if student's script's output match the
 #          required output as per tutorial instructions
 #     
+#
+# License: LGPL version 3
+# Link:    https://www.gnu.org/licenses/lgpl.html
+#
 
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
@@ -57,35 +60,45 @@ clear  # Clear the screen
 #   exit 1
 # fi
 
+
 # Start checking of week12 tutorial
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
+
 
 # Check "advanced" directory was created in home directory
 echo -n "Checking \"advanced\" directory has been created in your home directory: "
 check "test -d $HOME/advanced" "The directory pathname \"$HOME/advanced\" does NOT exist. Check if you mispelled the directory name, or used uppercase letters by mistake. Create the \"advanced\" directory that is contained in your home directory and re-run this checking script\n"
 
+
 # Check "if-4.bash" shell script was created in advanced directory
 echo -n "Checking \"if-4.bash\" shell script file has been created in in the \"~/advanced directory\": "
 check "test -f $HOME/advanced/if-4.bash" "The file pathname \"$HOME/advanced/if-4.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. make corrections and re-run this checking script\n"
+
 
 # Check "if-4.bash" shell script (in your ~/advanced directory) has execute permissions
 echo -n "Checking \"if-4.bash\" shell script file has execute permissions: "
 check "test -x $HOME/advanced/if-4.bash" "The shell script pathname \"$HOME/advanced/if-4.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"if-4.bash\" shell script file in your home directory and re-run this checking script\n"
 
+
 # Check "if-5.bash" shell script was created in advanced directory
 echo -n "Checking \"if-5.bash\" shell script file has been created in in the \"~/advanced directory\": "
 check "test -f $HOME/advanced/if-5.bash" "The file pathname \"$HOME/advanced/if-5.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. make corrections and re-run this checking script\n"
+
 
 # Check "if-5.bash" shell script (in your ~/advanced directory) has execute permissions
 echo -n "Checking \"if-5.bash\" shell script file has execute permissions: "
 check "test -x $HOME/advanced/if-5.bash" "The shell script pathname \"$HOME/advanced/if-5.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"if-5.bash\" shell script file in your home directory and re-run this checking script\n"
 
-. /home/osl640/duedates.txt
+. /home/jason.carman/duedates.txt
 
-weekDueDate=$t12
+weekDueDate=$t09
 
-/home/jason.carman/.hidden/transmogrify $USER 12 1 $(date +%s)
+src=$0
+
+export src
+
+/home/jason.carman/tutorials/source
 
 if [ $(date +%s) -le $weekDueDate ]
 then
@@ -94,15 +107,15 @@ else
    label="LATE "
 fi
 
-echo "${label}Week12-check-1 Check Completed for: $USER" | mail -s "${label}Week12-check-1 Successfully Completed" $USER@myseneca.ca  2> /dev/null
-echo "${label}Week12-check-1 Completed for: $USER" | mail -s "${label}Week12-check-1 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
+echo "${label}tutorial9-check-1 Check Completed for: $USER" | mail -s "${label}tutorial9-check-1 Successfully Completed" $USER@myseneca.ca  2> /dev/null
+echo "${label}tutorial9-check-1 Completed for: $USER" | mail -s "${label}tutorial9-check-1 Successfully Completed" $USER@senecapolytechnic.ca  2> /dev/null
 
 if [ $(date +%s) -le $weekDueDate ]
 then
    echo
    echo "Congratulations!"
    echo
-   echo  "You have passed the week12-check-1 script"
+   echo  "You have passed the tutorial9-check-1 script"
    echo  "This means that you correctly created and ran your shell scripts"
    echo
    echo  "An email has been sent to your Seneca Polytechnic email account"
@@ -113,7 +126,7 @@ then
    echo
 else
    echo
-   echo  "You have passed the week12-check-1 script"
+   echo  "You have passed the tutorial9-check-1 script"
    echo  "This means that you correctly created and ran your shell scripts"
    echo
    echo  "UNFORTUNATELY, THE DUE DATE FOR THIS TUTORIAL HAS PASSED"
