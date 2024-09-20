@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# lab3-check-6
+# lab4-check-6
 
 # Author:  Murray Saul
 # Date:    February 17, 2021
@@ -14,7 +14,7 @@
 #          required output as per tutorial instructions
 #     
 
-logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab3-check-6_output.txt
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab4-check-6_output.txt
 
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
@@ -58,7 +58,7 @@ if [ $PWD != $HOME ]; then
 fi
 
 # System information gathering
-echo "OSL645 Lab 3 Check 5 Script" > $logfile
+echo "OSL645 Lab 4 Check 5 Script" > $logfile
 
 # Add a unique identifier to the logfile
 read -p "Please enter your Seneca ID (ie jmcarman): " user
@@ -67,18 +67,18 @@ echo "------------------------------------" | tee -a $logfile
 
 # Start checking lab
 echo | tee -a $logfile
-echo "CHECKING YOUR LAB 3 WORK:" | tee -a $logfile
+echo "CHECKING YOUR LAB 4 WORK:" | tee -a $logfile
 
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
 
 # Check "hello.bash" shell script was created
 echo -n "Checking \"hello.bash\" shell script file has been created: " | tee -a $logfile
-check "test -f $HOME/lab-3-*/hello.bash" "The file pathname \"$HOME/lab-3-*/hello.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Use Git to clone your repo and re-run this checking script\n" | tee -a $logfile
+check "test -f $HOME/lab-4-*/hello.bash" "The file pathname \"$HOME/lab-4-*/hello.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Use Git to clone your repo and re-run this checking script\n" | tee -a $logfile
 
 # Check "hello.bash" shell script (in your home directory) has execute permissions
 echo -n "Checking \"hello.bash\" shell script file has execute permissions: " | tee -a $logfile
-check "test -x $HOME/lab-3-*/hello.bash" "The shell script pathname \"$HOME/lab-3-*/hello.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"hello.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -x $HOME/lab-4-*/hello.bash" "The shell script pathname \"$HOME/lab-4-*/hello.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"hello.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
 
 cat > /tmp/compare.$$ <<+
 
@@ -93,7 +93,7 @@ The current user home directory is: $HOME
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/lab-3-*/hello.bash > /tmp/student.$$
+$HOME/lab-4-*/hello.bash > /tmp/student.$$
 
 # Check student's "hello.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output
@@ -112,7 +112,7 @@ echo | tee -a $logfile
 if [ $warningcount == 0 ]; then
   echo "Congratulations!" | tee -a $logfile
   echo | tee -a $logfile
-  echo "You have successfully completed Lab 3 - Check 6." | tee -a $logfile
+  echo "You have successfully completed Lab 4 - Check 6." | tee -a $logfile
   echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
   echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
   echo

@@ -1,0 +1,131 @@
+#!/bin/bash
+
+# lab3-check-3
+
+# Author:  Murray Saul
+# Date:    January 31, 2021
+# Modified by:	Jason Carman
+# Modified: September 20, 2024
+#
+# Purpose: Check that user correctly created temp files via tee command
+#          when issuing pipeline commands. If there are errors
+#          users will be provided feedback to correct the problem.
+#          If no errors, then a congratulatory message will be displayed
+#          so that the user can proceed to the next section.
+#
+# License: LGPL version 3
+# Link:    https://www.gnu.org/licenses/lgpl.html
+#
+
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab3-check-3_output.txt
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+function check(){
+
+  if eval $1; then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     echo $2 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+if [ $PWD != $HOME ]; then
+   echo -e "\033[1mERROR:\033[0m"
+   echo
+   echo "You are NOT located in your HOME directory."
+   echo -e "(i.e. \033[1m$HOME\033[0m )"
+   echo
+   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+   echo -e "and confirm that you are"
+   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+   echo "and re-run this checking script."
+   echo
+   echo
+
+   exit 1
+fi
+
+# System information gathering
+echo "OSL645 Lab 3 Check 3 Script" > $logfile
+
+# Add a unique identifier to the logfile
+read -p "Please enter your Seneca ID (ie jmcarman): " user
+echo "Unique Identifer: $(echo $user | sha256sum)" | tee -a $logfile
+echo "------------------------------------" | tee -a $logfile
+
+# Start checking lab
+echo | tee -a $logfile
+echo "CHECKING YOUR LAB 3 WORK:" | tee -a $logfile
+
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+
+# Check ~/redirect/unsort.txt file exists
+echo -n "Checking \"$HOME/redirect/unsort.txt\" text file exists: " | tee -a $logfile
+check "test -f $HOME/redirect/unsort.txt" "The text file pathname \"$HOME/redirect/unsort.txt\" does NOT exist. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+
+# Check ~/redirect/sort.txt file exists
+echo -n "Checking \"$HOME/redirect/sort.txt\" text file exists: "
+check "test -f $HOME/redirect/sort.txt" "The text file pathname \"$HOME/redirect/sort.txt\" does NOT exist. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+
+# Check ~/redirect/match.txt file exists
+echo -n "Checking \"$HOME/redirect/match.txt\" text file exists: " | tee -a $logfile
+check "test -f $HOME/redirect/match.txt" "The text file pathname \"$HOME/redirect/match.txt\" does NOT exist. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+
+# Create temporary files
+
+ls /bin/???? > /tmp/unsort.txt.$$
+sort /tmp/unsort.txt.$$ > /tmp/sort.txt.$$
+grep r /tmp/sort.txt.$$ > /tmp/match.txt.$$
+
+
+# Check ~/redirect/unsort.txt file contains correct contents
+echo -n "Checking \"$HOME/redirect/unsort.txt\" text file contains correct contents: " | tee -a $logfile
+check "diff $HOME/redirect/unsort.txt /tmp/unsort.txt.$$" "The text file pathname \"$HOME/redirect/unsort.txt\" does NOT contain the correct contents. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+
+# Check ~/redirect/sort.txt file contains correct contents
+echo -n "Checking \"$HOME/redirect/sort.txt\" text file contains correct contents: " | tee -a $logfile
+check "diff $HOME/redirect/sort.txt /tmp/sort.txt.$$" "The text file pathname \"$HOME/redirect/sort.txt\" does NOT contain the correct contents. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+
+# Check ~/redirect/match.txt file contains correct contents
+echo -n "Checking \"$HOME/redirect/match.txt\" text file contains correct contents: " | tee -a $logfile
+check "diff $HOME/redirect/match.txt /tmp/match.txt.$$" "The text file pathname \"$HOME/redirect/match.txt\" does NOT contain correct contents. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+
+# Remove temporary files
+
+rm /tmp/unsort.txt.$$ 2> /dev/null
+rm /tmp/sort.txt.$$ 2> /dev/null
+rm /tmp/match.txt.$$ 2> /dev/null
+
+warningcount=$(grep -c "WARNING" $logfile)
+
+echo | tee -a $logfile
+echo | tee -a $logfile
+
+if [ $warningcount == 0 ]; then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 3 - Check 3." | tee -a $logfile
+  echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi

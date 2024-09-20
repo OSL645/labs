@@ -3,19 +3,15 @@
 # lab4-check-1
 
 # Author:  Murray Saul
-# Date:    January 17, 2021
-# Modified by:	Jason Carman
-# Modified: September 20, 2024
+# Date:    January 21, 2020
+# Modified By: Jason Carman
+# Modified: September 18, 2024
 #
-# Purpose: Check that user correctly created temporary text files
-#          in their ~/redirect directory. If there are errors
-#          users will be provided feedback to correct the problem.
+# Purpose: Check that user correctly created the specified directory
+#          structure. This shell script will exit if errors,
+#          but will provide feedback to correct the problem.
 #          If no errors, then a congratulatory message will be displayed
 #          so that the user can proceed to the next section.
-#
-# License: LGPL version 3
-# Link:    https://www.gnu.org/licenses/lgpl.html
-#
 
 logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab4-check-1_output.txt
 
@@ -59,7 +55,6 @@ if [ $PWD != $HOME ]; then
 
    exit 1
 fi
-
 # System information gathering
 echo "OSL645 Lab 4 Check 1 Script" > $logfile
 
@@ -75,66 +70,29 @@ echo "CHECKING YOUR LAB 4 WORK:" | tee -a $logfile
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
 
-# Check directory "redirect" created in home directory
-echo -n "Checking \"$HOME/redirect\" directory has been created: " | tee -a $logfile
-check "test -d $HOME/redirect" "The directory pathname \"$HOME/redirect\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"uli101xx\" in your home directory and re-run this checking script" | tee -a $logfile
+# Check directory documents created in home directory
+echo -n "Checking \"documents\" directory has been created in your home directory: " | tee -a $logfile
+check "test -d $HOME/documents" "The directory pathname \"$HOME/documents\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"documents\" in your home directory and re-run this checking script" | tee -a $logfile
 
+# Check directory clients created in home directory
+echo -n "Checking \"clients\" directory has been created in your home directory: " | tee -a $logfile
+check "test -d $HOME/clients" "The directory pathname \"$HOME/clients\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"clients\" in your home directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/output.txt file exists
-echo -n "Checking \"$HOME/redirect/output.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/output.txt" "The text file pathname \"$HOME/redirect/output.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
+# Check directory vendors created in home directory
+echo -n "Checking \"vendors\" directory has been created in your home directory: " | tee -a $logfile
+check "test -d $HOME/vendors" "The directory pathname \"$HOME/vendors\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"vendors\" in your home directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/output2.txt file exists
-echo -n "Checking \"$HOME/redirect/output2.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/output2.txt" "The text file pathname \"$HOME/redirect/output2.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
+# Check directory documents/memos created in home directory
+echo -n "Checking \"documents/memos\" directory has been created in your home directory: " | tee -a $logfile
+check "test -d $HOME/documents/memos" "The directory pathname \"$HOME/documents/memos\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"documents/memos\" in your home directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/output3.txt file exists
-echo -n "Checking \"$HOME/redirect/output3.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/output3.txt" "The text file pathname \"$HOME/redirect/output3.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
+# Check directory documents/reports created in home directory
+echo -n "Checking \"documents/reports\" directory has been created in your home directory: " | tee -a $logfile
+check "test -d $HOME/documents/reports" "The directory pathname \"$HOME/documents/reports\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"documents/reports\" in your home directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/field5.txt file exists
-echo -n "Checking \"$HOME/redirect/field5.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/field5.txt" "The text file pathname \"$HOME/redirect/field5.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/field123.txt file exists
-echo -n "Checking \"$HOME/redirect/field123.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/field123.txt" "The text file pathname \"$HOME/redirect/field123.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/field15.txt file exists
-echo -n "Checking \"$HOME/redirect/field15.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/field15.txt" "The text file pathname \"$HOME/redirect/field15.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/count.txt file exists
-echo -n "Checking \"$HOME/redirect/count.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/count.txt" "The text file pathname \"$HOME/redirect/count.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/count1.txt file exists
-echo -n "Checking \"$HOME/redirect/count1.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/count1.txt" "The text file pathname \"$HOME/redirect/count1.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/count2.txt file exists
-echo -n "Checking \"$HOME/redirect/count2.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/count2.txt" "The text file pathname \"$HOME/redirect/count2.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/listing.txt file exists
-echo -n "Checking \"$HOME/redirect/listing.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/listing.txt" "The text file pathname \"$HOME/redirect/listing.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/combined.txt file exists
-echo -n "Checking \"$HOME/redirect/combined.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/combined.txt" "The text file pathname \"$HOME/redirect/combined.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/result.txt file exists
-echo -n "Checking \"$HOME/redirect/result.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/result.txt" "The text file pathname \"$HOME/redirect/result.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/myoutput.txt file exists
-echo -n "Checking \"$HOME/redirect/myoutput.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/myoutput.txt" "The text file pathname \"$HOME/redirect/myoutput.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/line2.txt file exists
-echo -n "Checking \"$HOME/redirect/line2.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/line2.txt" "The text file pathname \"$HOME/redirect/line2.txt\" does NOT exist. Re-run the Linux command(s) using redirection to create this temporary text file and re-run this checking script" | tee -a $logfile
+# Check directory documents/contracts created in home directory
+echo -n "Checking \"documents/contracts\" directory has been created in your home directory: " | tee -a $logfile
+check "test -d $HOME/documents/contracts" "The directory pathname \"$HOME/documents/contracts\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"documents/contracts\" in your home directory and re-run this checking script" | tee -a $logfile
 
 warningcount=$(grep -c "WARNING" $logfile)
 

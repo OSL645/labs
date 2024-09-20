@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# lab3-check-5
+# lab4-check-5
 
 # Author:  Murray Saul
 # Date:    February 17, 2021
@@ -11,7 +11,7 @@
 #          their home directory and has execute permissions
 #          
 
-logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab3-check-5_output.txt
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab4-check-5_output.txt
 
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
@@ -55,7 +55,7 @@ if [ $PWD != $HOME ]; then
 fi
 
 # System information gathering
-echo "OSL645 Lab 3 Check 5 Script" > $logfile
+echo "OSL645 Lab 4 Check 5 Script" > $logfile
 
 # Add a unique identifier to the logfile
 read -p "Please enter your Seneca ID (ie jmcarman): " user
@@ -64,7 +64,7 @@ echo "------------------------------------" | tee -a $logfile
 
 # Start checking lab
 echo | tee -a $logfile
-echo "CHECKING YOUR LAB 3 WORK:" | tee -a $logfile
+echo "CHECKING YOUR LAB 4 WORK:" | tee -a $logfile
 
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
@@ -109,7 +109,7 @@ echo | tee -a $logfile
 if [ $warningcount == 0 ]; then
   echo "Congratulations!" | tee -a $logfile
   echo | tee -a $logfile
-  echo "You have successfully completed Lab 3 - Check 5." | tee -a $logfile
+  echo "You have successfully completed Lab 4 - Check 5." | tee -a $logfile
   echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
   echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
   echo

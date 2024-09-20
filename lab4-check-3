@@ -3,19 +3,15 @@
 # lab4-check-3
 
 # Author:  Murray Saul
-# Date:    January 31, 2021
-# Modified by:	Jason Carman
-# Modified: September 20, 2024
+# Date:    January 21, 2020
+# Modified By: Jason Carman
+# Modified: September 18, 2024
 #
-# Purpose: Check that user correctly created temp files via tee command
-#          when issuing pipeline commands. If there are errors
-#          users will be provided feedback to correct the problem.
+# Purpose: Check that user correctly set permissions for directories`
+#          and regular files. This shell script will exit if errors,
+#          but will provide feedback to correct the problem.
 #          If no errors, then a congratulatory message will be displayed
 #          so that the user can proceed to the next section.
-#
-# License: LGPL version 3
-# Link:    https://www.gnu.org/licenses/lgpl.html
-#
 
 logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab4-check-3_output.txt
 
@@ -61,7 +57,7 @@ if [ $PWD != $HOME ]; then
 fi
 
 # System information gathering
-echo "OSL645 Lab 4 Check 2 Script" > $logfile
+echo "OSL645 Lab 4 Check 3 Script" > $logfile
 
 # Add a unique identifier to the logfile
 read -p "Please enter your Seneca ID (ie jmcarman): " user
@@ -75,43 +71,41 @@ echo "CHECKING YOUR LAB 4 WORK:" | tee -a $logfile
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
 
+# Check ~/clients directory has rwxr-x--- permissions
+echo -n "Checking \"~/clients\" directory has \"rwxr-x---\" permissions: " | tee -a $logfile
+check "ls -ld ~/clients | cut -d\" \" -f1 | grep -sq \"drwxr-x---\"" "The directory pathname \"~/clients\" does NOT contain the permissions \"rwxr-x---\" (use ls -ld ~/clients) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/unsort.txt file exists
-echo -n "Checking \"$HOME/redirect/unsort.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/unsort.txt" "The text file pathname \"$HOME/redirect/unsort.txt\" does NOT exist. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+# Check ~/vendors directory has rwxr-x--- permissions
+echo -n "Checking \"~/vendors\" directory has \"rwxr-x---\" permissions: " | tee -a $logfile
+check "ls -ld ~/clients | cut -d\" \" -f1 | grep -sq \"drwxr-x---\"" "The directory pathname \"~/vendors\" does NOT contain the permissions \"rwxr-x---\" (use ls -ld ~/vendors) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/sort.txt file exists
-echo -n "Checking \"$HOME/redirect/sort.txt\" text file exists: "
-check "test -f $HOME/redirect/sort.txt" "The text file pathname \"$HOME/redirect/sort.txt\" does NOT exist. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+# Check ~/documents directory has rwxr-x--- permissions
+echo -n "Checking \"~/documents\" directory has \"rwxr-x---\" permissions: " | tee -a $logfile
+check "ls -ld ~/documents | cut -d\" \" -f1 | grep -sq \"drwxr-x---\"" "The directory pathname \"~/documents\" does NOT contain the permissions \"rwxr-x---\" (use ls -ld ~/documents) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/match.txt file exists
-echo -n "Checking \"$HOME/redirect/match.txt\" text file exists: " | tee -a $logfile
-check "test -f $HOME/redirect/match.txt" "The text file pathname \"$HOME/redirect/match.txt\" does NOT exist. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+# Check ~/documents/memos directory has rwxr-x--- permissions
+echo -n "Checking \"~/documents/memos\" directory has \"rwxr-x---\" permissions: " | tee -a $logfile
+check "ls -ld ~/documents/memos | cut -d\" \" -f1 | grep -sq \"drwxr-x---\"" "The directory pathname \"~/documents/memos\" does NOT contain the permissions \"rwxr-x---\" (use ls -ld ~/documents/memos) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
-# Create temporary files
+# Check ~/documents/reports directory has rwxr-x--- permissions
+echo -n "Checking \"~/documents/reports\" directory has \"rwxr-x---\" permissions: " | tee -a $logfile
+check "ls -ld ~/documents/reports | cut -d\" \" -f1 | grep -sq \"drwxr-x---\"" "The directory pathname \"~/documents/reports\" does NOT contain the permissions \"rwxr-x---\" (use ls -ld ~/documents/reports) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
-ls /bin/???? > /tmp/unsort.txt.$$
-sort /tmp/unsort.txt.$$ > /tmp/sort.txt.$$
-grep r /tmp/sort.txt.$$ > /tmp/match.txt.$$
+# Check ~/documents/contracts directory has rwxr-x--- permissions
+echo -n "Checking \"~/documents/contracts\" directory has \"rwxr-x---\" permissions: " | tee -a $logfile
+check "ls -ld ~/documents/contracts | cut -d\" \" -f1 | grep -sq \"drwxr-x---\"" "The directory pathname \"~/documents/contracts\" does NOT contain the permissions \"rwxr-x---\" (use ls -ld ~/documents/contracts) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
+# Check ~/documents/memos/memo1.txt file has -rw-r----- permissions
+echo -n "Checking \"~/documents/memos/memo1.txt\" file has \"rw-r-----\" permissions: " | tee -a $logfile
+check "ls -l ~/documents/memos/memo1.txt | cut -d' ' -f1 | grep -sq '\-rw\-r\-\-\-\-\-'" "The file \"~/documents/memos/memo1.txt\" does NOT contain the permissions \"-rw-r-----\" (use ls -l ~/documents/memos) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/unsort.txt file contains correct contents
-echo -n "Checking \"$HOME/redirect/unsort.txt\" text file contains correct contents: " | tee -a $logfile
-check "diff $HOME/redirect/unsort.txt /tmp/unsort.txt.$$" "The text file pathname \"$HOME/redirect/unsort.txt\" does NOT contain the correct contents. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
+# Check ~/documents/memos/memo2.txt file has -rw-r----- permissions
+echo -n "Checking \"~/documents/memos/memo2.txt\" file has \"rw-r-----\" permissions: " | tee -a $logfile
+check "ls -l ~/documents/memos/memo2.txt | cut -d' ' -f1 | grep -sq '\-rw\-r\-\-\-\-\-'" "The file \"~/documents/memos/memo2.txt\" does NOT contain the permissions \"-rw-r-----\" (use ls -l ~/documents/memos) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
-# Check ~/redirect/sort.txt file contains correct contents
-echo -n "Checking \"$HOME/redirect/sort.txt\" text file contains correct contents: " | tee -a $logfile
-check "diff $HOME/redirect/sort.txt /tmp/sort.txt.$$" "The text file pathname \"$HOME/redirect/sort.txt\" does NOT contain the correct contents. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
-
-# Check ~/redirect/match.txt file contains correct contents
-echo -n "Checking \"$HOME/redirect/match.txt\" text file contains correct contents: " | tee -a $logfile
-check "diff $HOME/redirect/match.txt /tmp/match.txt.$$" "The text file pathname \"$HOME/redirect/match.txt\" does NOT contain correct contents. Re-run the Linux pipeline command correctly and re-run this checking script" | tee -a $logfile
-
-# Remove temporary files
-
-rm /tmp/unsort.txt.$$ 2> /dev/null
-rm /tmp/sort.txt.$$ 2> /dev/null
-rm /tmp/match.txt.$$ 2> /dev/null
+# Check ~/documents/memos/memo3.txt file has -rw-r----- permissions
+echo -n "Checking \"~/documents/memos/memo3.txt\" file has \"rw-r-----\" permissions: " | tee -a $logfile
+check "ls -l ~/documents/memos/memo3.txt | cut -d' ' -f1 | grep -sq '\-rw\-r\-\-\-\-\-'" "The file \"~/documents/memos/memo3.txt\" does NOT contain the permissions \"-rw-r-----\" (use ls -l ~/documents/memos) command to confirm. Re-issue the \"chmod\" command correctly for this directory and re-run this checking script" | tee -a $logfile
 
 warningcount=$(grep -c "WARNING" $logfile)
 
@@ -121,7 +115,7 @@ echo | tee -a $logfile
 if [ $warningcount == 0 ]; then
   echo "Congratulations!" | tee -a $logfile
   echo | tee -a $logfile
-  echo "You have successfully completed Lab 4 - Check 2." | tee -a $logfile
+  echo "You have successfully completed Lab 4 - Check 3." | tee -a $logfile
   echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
   echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
   echo
