@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    January 27, 2020
 # Modified by:	Jason Carman
-# Modified:	September 25, 2024
+# Modified:	October 2, 2024
 #
 # Purpose: Check that the user copied the files correctly
 #          This shell script will exit if errors, but will provide
@@ -79,17 +79,13 @@ echo
 echo -n "Checking \"~/local\" directory has been created: " | tee -a $logfile
 check "test -d $HOME/local" "The directory pathname \"$HOME/local\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"local\" in your home directory and re-run this checking script" | tee -a $logfile
 
-# Check that remotely copied file ~/other.txt exists
-echo -n "Checking that remotely copied file \"~/other.txt\" exists: " | tee -a $logfile
-check "test -f $HOME/other.txt" "The file pathname \"$HOME/other.txt\" does NOT exist. Use the scp command to properly copy this file to your home directory and re-run this checking script" | tee -a $logfile
+# Check that remotely copied file ~/local/other.txt exists
+echo -n "Checking that file \"~/local/other.txt\" exists: " | tee -a $logfile
+check "test -f $HOME/local/other.txt" "The file pathname \"$HOME/local/other.txt\" does NOT exist. Use the scp command to properly copy this file to your home directory and re-run this checking script" | tee -a $logfile
 
-# Check that remotely copied file ~/mytextfile.txt exists
-echo -n "Checking that remotely copied file \"~/mytextfile.txt\" exists: " | tee -a $logfile
-check "test -f $HOME/mytextfile.txt" "The file pathname \"$HOME/mytextfile.txt\" does NOT exist. Use the scp command to properly copy this file to the Matrix server and re-run this checking script" | tee -a $logfile
-
-# Check that remotely copied file ~/local/different.txt exists
-echo -n "Checking that remotely copied file \"~/local/different.txt\" exists: " | tee -a $logfile
-check "test -f $HOME/local/different.txt" "The file pathname \"$HOME/local/different.txt\" does NOT exist. Use the scp command to properly copy this file to the ~/local directory as a different filename and re-run this checking script" | tee -a $logfile
+# Check that remotely copied file ~/local/mytextfile.txt exists
+echo -n "Checking that remotely copied file \"~/local/mytextfile.txt\" exists: " | tee -a $logfile
+check "test -f $HOME/local/mytextfile.txt" "The file pathname \"$HOME/local/mytextfile.txt\" does NOT exist. Use the scp command to properly copy this file to the Matrix server and re-run this checking script" | tee -a $logfile
 
 warningcount=$(grep -c "WARNING" $logfile)
 
