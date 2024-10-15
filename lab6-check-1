@@ -76,27 +76,27 @@ echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
 # Assign value to a variable to act as a "flag" for alias match
 
-match=0
+# match=0
 
 # Loop to read in all aliases (line-by-line)
 
-while read line
-do
+# while read line
+# do
 
-   # if line matches "lh=" pattern, increase # of matches by value of 1
+  # if line matches "lh=" pattern, increase # of matches by value of 1
 
-   if echo "$line" | grep -sq "lh="
-   then
-     ((match++)) 
-   fi
-done < "${1:-/dev/stdin}"
+  # if echo "$line" | grep -sq "lh="
+  # then
+    # ((match++)) 
+  # fi
+# done < "${1:-/dev/stdin}"
 
 # Check that "lh" alias is in computer memory using the value of
 # "match" variable. If match variable is NOT equal to 0 (i.e. no matches)
 # then TRUE value; otherwise, FALSE value when evaluated
 
 echo -n "Checking \"lh\" alias has been created: "
-check "test $match -ne 0" "The alias called \"lh\" does NOT exist. Issue the \"alias\" command to properly create this alias and re-run this checking script"
+check "alias | grep -sq 'lh\='" "The alias called \"lh\" does NOT exist. Issue the \"alias\" command to properly create this alias and re-run this checking script"
 
 # Check that "lh" alias has been added to the ~/.bashrc startup file
 echo -n "Checking that \"lh\" has been added to the \"~/.bashrc\" startup file: " | tee -a $logfile
