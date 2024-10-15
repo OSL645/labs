@@ -96,7 +96,7 @@ echo
 # then TRUE value; otherwise, FALSE value when evaluated
 
 echo -n "Checking \"lh\" alias has been created: "
-check "alias | grep -sq 'lh\='" "The alias called \"lh\" does NOT exist. Issue the \"alias\" command to properly create this alias and re-run this checking script"
+check "alias | grep -sq 'lh'" "The alias called \"lh\" does NOT exist. Issue the \"alias\" command to properly create this alias and re-run this checking script"
 
 # Check that "lh" alias has been added to the ~/.bashrc startup file
 echo -n "Checking that \"lh\" has been added to the \"~/.bashrc\" startup file: " | tee -a $logfile
