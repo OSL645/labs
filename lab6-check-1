@@ -74,6 +74,21 @@ echo "CHECKING YOUR LAB 6 WORK:" | tee -a $logfile
 
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
+# Assign value to a variable to act as a "flag" for alias match
+
+match=0
+
+# Loop to read in all aliases (line-by-line)
+
+while read line; do
+
+   # if line matches "lh=" pattern, increase # of matches by value of 1
+
+   if echo "$line" | grep -sq "lh="
+   then
+     ((match++)) 
+   fi
+done < "${1:-/dev/stdin}"
 
 # Check that "lh" alias is in computer memory using the value of
 # "match" variable. If match variable is NOT equal to 0 (i.e. no matches)
