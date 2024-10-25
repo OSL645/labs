@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    March 3, 2021
 # Modified by:	Jason Carman
-# Modified:	October 15, 2024
+# Modified:	October 24, 2024
 #
 # Purpose: Verify that user created a shell scripts to demonstrate
 #          command substitution and match operations
