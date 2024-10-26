@@ -76,15 +76,13 @@ echo "CHECKING YOUR LAB 6 WORK:" | tee -a $logfile
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
 
+# Check "if-1.bash" shell script was created
+echo -n "Checking \"if-1.bash\" shell script file has been created: " | tee -a $logfile
+check "test -f $HOME/lab-6-*/if-1.bash" "The file pathname \"$HOME/lab-6-*/if-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Use Git to clone your repo and re-run this checking script\n" | tee -a $logfile
 
-# Check "if-1.bash" shell script was created in home directory
-echo -n "Checking \"if-1.bash\" shell script file has been created in your home directory: " | tee -a $logfile
-check "test -f $HOME/if-1.bash" "The file pathname \"$HOME/if-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"if-1.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
-
-# Check "if-1.bash" shell script (in your home directory) has execute permissions
+# Check "if-1.bash" shell script has execute permissions
 echo -n "Checking \"if-1.bash\" shell script file has execute permissions: " | tee -a $logfile
-check "test -x $HOME/if-1.bash" "The shell script pathname \"$HOME/if-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"if-1.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
-
+check "test -x $HOME/lab-6-*/if-1.bash" "The shell script pathname \"$HOME/if-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"if-1.bash\" shell script file and re-run this checking script\n" | tee -a $logfile
 
 # Create the temporary BENCHMARK output file of if-1.bash for comparison purposes
 # Notice that the "Here Document" is used to create this file with redirection 
@@ -93,10 +91,9 @@ cat > /tmp/compare.$$ <<+
 num1 is less than num2
 +
 
-
 # Run student's shell script and store stdout to a temp file
 
-$HOME/if-1.bash > /tmp/student.$$
+$HOME/lab-6-*/if-1.bash > /tmp/student.$$
 
 # Check student's "if-1.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output
@@ -107,12 +104,11 @@ $HOME/if-1.bash > /tmp/student.$$
 echo -n "Checking your \"if-1.bash\" shell script file produces CORRECT required output: " | tee -a $logfile
 check "diff /tmp/student.$$ /tmp/compare.$$ > /dev/null 2> /dev/null" "The OUTPUT when running your Bash shell script does NOT match\nthe required specifications provided from your tutorial instructions.\n\n\e[3;4;33mYOUR SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/student.$$)\n\n\e[3;4;33mCORRECT SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/compare.$$)\n\nCAREFULLY look for differences, then make corrections to your Bash shell script\nto match CORRECT OUTPUT, save editing changes, run your script to confirm,\nand then re-run this checking script.\n\n" | tee -a $logfile
 
+# Check "for-1.bash" shell script was created
+echo -n "Checking \"for-1.bash\" shell script file has been created: " | tee -a $logfile
+check "test -f $HOME/lab-6-*/for-1.bash" "The file pathname \"$HOME/lab-6-*/for-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-1.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
 
-# Check "for-1.bash" shell script was created in home directory
-echo -n "Checking \"for-1.bash\" shell script file has been created in your home directory: " | tee -a $logfile
-check "test -f $HOME/for-1.bash" "The file pathname \"$HOME/for-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-1.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
-
-# Check "for-1.bash" shell script (in your home directory) has execute permissions
+# Check "for-1.bash" shell script has execute permissions
 echo -n "Checking \"for-1.bash\" shell script file has execute permissions: "
 check "test -x $HOME/for-1.bash" "The shell script pathname \"$HOME/for-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-1.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
 
@@ -139,7 +135,7 @@ blast-off!
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/for-1.bash > /tmp/student.$$
+$HOME/lab-6-*/for-1.bash > /tmp/student.$$
 
 # Check student's "for-1.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output
@@ -150,10 +146,8 @@ $HOME/for-1.bash > /tmp/student.$$
 echo -n "Checking your \"for-1.bash\" shell script file produces CORRECT required output: " | tee -a $logfile
 check "diff /tmp/student.$$ /tmp/compare.$$ > /dev/null 2> /dev/null" "The OUTPUT when running your Bash shell script does NOT match\nthe required specifications provided from your tutorial instructions.\n\n\e[3;4;33mYOUR SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/student.$$)\n\n\e[3;4;33mCORRECT SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/compare.$$)\n\nCAREFULLY look for differences, then make corrections to your Bash shell script\nto match CORRECT OUTPUT, save editing changes, run your script to confirm,\nand then re-run this checking script.\n\n" | tee -a $logfile
 
-
-
-# Check "for-2.bash" shell script was created in home directory
-echo -n "Checking \"for-2.bash\" shell script file has been created in your home directory: " | tee -a $logfile
+# Check "for-2.bash" shell script was created
+echo -n "Checking \"for-2.bash\" shell script file has been created: " | tee -a $logfile
 check "test -f $HOME/for-1.bash" "The file pathname \"$HOME/for-2.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-2.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
 
 # Check "for-2.bash" shell script (in your home directory) has execute permissions
