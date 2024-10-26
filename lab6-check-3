@@ -175,7 +175,7 @@ blast-off!
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/for-2.bash 3 2 1 > /tmp/student.$$
+$HOME/lab-6-*/for-2.bash 3 2 1 > /tmp/student.$$
 
 # Check student's "for-2.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output
