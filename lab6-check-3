@@ -110,7 +110,7 @@ check "test -f $HOME/lab-6-*/for-1.bash" "The file pathname \"$HOME/lab-6-*/for-
 
 # Check "for-1.bash" shell script has execute permissions
 echo -n "Checking \"for-1.bash\" shell script file has execute permissions: "
-check "test -x $HOME/for-1.bash" "The shell script pathname \"$HOME/for-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-1.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -x $HOME/lab-6-*/for-1.bash" "The shell script pathname \"$HOME/lab-6-*/for-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-1.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
 
 # Check "for-1.bash" shell script contains "she-bang" line at TOP of file
 # Notice that an extended regular expression is used to permit one or more spaces
@@ -148,11 +148,11 @@ check "diff /tmp/student.$$ /tmp/compare.$$ > /dev/null 2> /dev/null" "The OUTPU
 
 # Check "for-2.bash" shell script was created
 echo -n "Checking \"for-2.bash\" shell script file has been created: " | tee -a $logfile
-check "test -f $HOME/for-1.bash" "The file pathname \"$HOME/for-2.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-2.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -f $HOME/lab-6-*/for-2.bash" "The file pathname \"$HOME/lab-6-*/for-2.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-2.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
 
 # Check "for-2.bash" shell script (in your home directory) has execute permissions
 echo -n "Checking \"for-2.bash\" shell script file has execute permissions: "
-check "test -x $HOME/for-2.bash" "The shell script pathname \"$HOME/for-2.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-2.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -x $HOME/lab-6-*/for-2.bash" "The shell script pathname \"$HOME/lab-6-*/for-2.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-2.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
 
 # Check "for-2.bash" shell script contains "she-bang" line at TOP of file
 # Notice that an extended regular expression is used to permit one or more spaces
