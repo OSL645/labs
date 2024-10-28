@@ -75,9 +75,9 @@ echo "CHECKING YOUR LAB 7 WORK:" | tee -a $logfile
 echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
 echo
 
-# Check that numbers2.dat file was downloaded to your regexps directory
-echo -n "Checking \"numbers2.dat\" file was downloaded to the \"regexps\" directory: " | tee -a $logfile
-check "test -f $HOME/regexps/numbers2.dat" "The file pathname \"$HOME/regexps/numbers2.dat\" does NOT exist. Use the \"wget\" command to properly download this file and re-run this checking script" | tee -a $logfile
+# Check that numbers2.dat file was copied to your regexps directory
+echo -n "Checking \"numbers2.dat\" file was copied to the \"regexps\" directory: " | tee -a $logfile
+check "test -f $HOME/regexps/numbers2.dat" "The file pathname \"$HOME/regexps/numbers2.dat\" does NOT exist. Use the \"cp\" command to properly download this file and re-run this checking script" | tee -a $logfile
 
 # Check ~/regexps/better-number1.txt file exists
 echo -n "Checking \"$HOME/regexps/better-number1.txt\" file exists: " | tee -a $logfile

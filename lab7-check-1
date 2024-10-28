@@ -79,9 +79,9 @@ echo
 echo -n "Checking \"regexps\" directory has been created in your home directory: " | tee -a $logfile
 check "test -d $HOME/regexps" "The directory pathname \"$HOME/regexps\" does NOT exist. Check if you mispelled directory name, or used uppercase letters by mistake. Create the directory \"regexps\" in your home directory and re-run this checking script" | tee -a $logfile
 
-# Check that numbers1.dat file was downloaded to your regexps directory
-echo -n "Checking \"numbers1.dat\" file was downloaded to the \"regexps\" directory: " | tee -a $logfile
-check "test -f $HOME/regexps/numbers1.dat" "The file pathname \"$HOME/regexps/numbers1.dat\" does NOT exist. Use the \"cp\" command in Investigation 1 step 23 to properly download this file and re-run this checking script" | tee -a $logfile
+# Check that numbers1.dat file was copied to your regexps directory
+echo -n "Checking \"numbers1.dat\" file was copied to the \"regexps\" directory: " | tee -a $logfile
+check "test -f $HOME/regexps/numbers1.dat" "The file pathname \"$HOME/regexps/numbers1.dat\" does NOT exist. Use the \"cp\" command to properly download this file and re-run this checking script" | tee -a $logfile
 
 # Check ~/regexps/faulty.txt file exists
 echo -n "Checking \"$HOME/regexps/faulty.txt\" file exists: " | tee -a $logfile
