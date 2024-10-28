@@ -28,15 +28,15 @@ Let's use regular expressions with the more command.
 Issue the following linux command to view the contents of the textfile1.txt (downloaded in a previous section):
 more textfile1.txt
 
-We want to search for a pattern osl640 within this text file.
+We want to search for a pattern osl645 within this text file.
 Type the following regular expression and press ENTER:
-/osl640
+/osl645
 
 What did you notice?
 
-Search for the next occurrence of the pattern osl640 by re-typing
+Search for the next occurrence of the pattern osl645 by re-typing
 the following regular expression and pressing ENTER:
-/osl640
+/osl645
 
 you should now see the second occurrence of this pattern within the text file.
 
@@ -53,18 +53,18 @@ vi textfile1.txt
 Let's first perform a simple search within this text file.
 
 Type the following and press ENTER:
-/osl640
+/osl645
 
-You should move to the first occurrence of the pattern: osl640.
+You should move to the first occurrence of the pattern: osl645.
 
-Let's search for the osl640 pattern, but replace it in capitals (i.e OSL640).
+Let's search for the osl645 pattern, but replace it in capitals (i.e osl645).
 
 In vi, in order to perform and command, you need to go into last line mode, and then issue a command to apply to the entire text file, followed by a regular expression to search for and a regular expression to replace (i.e. /search/replace/).
 
 Type the following and press ENTER:
-:%s/osl640/OSL640
+:%s/osl645/osl645
 
-You should have noticed that the first occurrence of osl640 has been changed to OSL640.
+You should have noticed that the first occurrence of osl645 has been changed to osl645.
 
 Navigate throughout the text file to see if the other occurrences have been replaced.
 
@@ -72,9 +72,9 @@ You should notice they haven't for the other two occurrences. In order to replac
 you need to add the letter g (meaning "global") at the end of the last forward slash (e.g /search/replace/g).
 
 Making certain that you are command mode in vi, type the following and press ENTER:
-:%s/osl640/OSL640/g
+:%s/osl645/osl645/g
 
-Navigate throughout the text file to confirm that ALL occurrences of osl640 have been replaced with OSL640.
+Navigate throughout the text file to confirm that ALL occurrences of osl645 have been replaced with osl645.
 
 Save changes to your vi editing session and exit by typing the following and pressing ENTER:
 :x
@@ -110,15 +110,15 @@ Let's use regular expressions with the more command.
 Issue the following linux command to view the contents of the textfile1.txt (downloaded in a previous section):
 more textfile1.txt
 
-We want to search for a pattern osl640 within this text file.
+We want to search for a pattern osl645 within this text file.
 Type the following regular expression and press ENTER:
-/osl640
+/osl645
 
 What did you notice?
 
-Search for the next occurrence of the pattern osl640 by re-typing
+Search for the next occurrence of the pattern osl645 by re-typing
 the following regular expression and pressing ENTER:
-/osl640
+/osl645
 
 you should now see the second occurrence of this pattern within the text file.
 
@@ -135,11 +135,11 @@ vi textfile1.txt
 Let's first perform a simple search within this text file.
 
 Type the following and press ENTER:
-/osl640
+/osl645
 
-You should move to the first occurrence of the pattern: osl640.
+You should move to the first occurrence of the pattern: osl645.
 
-Let's search for the osl640 pattern, but replace it in capitals (i.e OSL640).
+Let's search for the osl645 pattern, but replace it in capitals (i.e osl645).
 
 INVESTIGATION 3: OTHER COMMANDS THAT USE REGULAR EXPRESSIONS
 In this section, you will see how regular expressions can be used with other Linux utilities other than grep or egrep.
@@ -170,15 +170,15 @@ Let's use regular expressions with the more command.
 Issue the following linux command to view the contents of the textfile1.txt (downloaded in a previous section):
 more textfile1.txt
 
-We want to search for a pattern osl640 within this text file.
+We want to search for a pattern osl645 within this text file.
 Type the following regular expression and press ENTER:
-/osl640
+/osl645
 
 What did you notice?
 
-Search for the next occurrence of the pattern osl640 by re-typing
+Search for the next occurrence of the pattern osl645 by re-typing
 the following regular expression and pressing ENTER:
-/osl640
+/osl645
 
 you should now see the second occurrence of this pattern within the text file.
 
@@ -195,9 +195,9 @@ vi textfile1.txt
 Let's first perform a simple search within this text file.
 
 Type the following and press ENTER:
-/osl640
+/osl645
 
-You should move to the first occurrence of the pattern: osl640.
+You should move to the first occurrence of the pattern: osl645.
 
-Let's search for the osl640 pattern, but replace it in capitals (i.e OSL640).
+Let's search for the osl645 pattern, but replace it in capitals (i.e osl645).
 
