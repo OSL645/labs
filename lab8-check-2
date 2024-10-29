@@ -88,7 +88,7 @@ check "test -f $HOME/awk/awk-1.txt" "The text file pathname \"$HOME/awk/awk-1.tx
 
 # Check ~/awk/awk-1.txt file contains correct results
 echo -n "Checking \"$HOME/awk/awk-1.txt\" file contains correct results: " | tee -a $logfile
-awk '/ford/' $HOME/awk/cars.txt > /tmp/temp.$$
+awk '/ford/' $HOME/awk/cars > /tmp/temp.$$
 check "diff $HOME/awk/awk-1.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-1.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
@@ -98,7 +98,7 @@ check "test -f $HOME/awk/awk-2.txt" "The text file pathname \"$HOME/awk/awk-2.tx
 
 # Check ~/awk/awk-2.txt file contains correct results
 echo -n "Checking \"$HOME/awk/awk-2.txt\" file contains correct results: " | tee -a $logfile
-awk '/chevy/ {print $2,$3,$4,$5}' $HOME/awk/cars.txt > /tmp/temp.$$
+awk '/chevy/ {print $2,$3,$4,$5}' $HOME/awk/cars > /tmp/temp.$$
 check "diff $HOME/awk/awk-2.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-2.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
@@ -108,7 +108,7 @@ check "test -f $HOME/awk/awk-3.txt" "The text file pathname \"$HOME/awk/awk-3.tx
 
 # Check ~/awk/awk-3.txt file contains correct results
 echo -n "Checking \"$HOME/awk/awk-3.txt\" file contains correct results: " | tee -a $logfile
-awk '$1 ~ /plym/ {print $2,$3,$4,$5}' $HOME/awk/cars.txt  > /tmp/temp.$$
+awk '$1 ~ /plym/ {print $2,$3,$4,$5}' $HOME/awk/cars  > /tmp/temp.$$
 check "diff $HOME/awk/awk-3.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-3.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
@@ -118,7 +118,7 @@ check "test -f $HOME/awk/awk-4.txt" "The text file pathname \"$HOME/awk/awk-4.tx
 
 # Check ~/awk/awk-4.txt file contains correct results
 echo -n "Checking \"$HOME/awk/awk-4.txt\" file contains correct results: " | tee -a $logfile
-awk '$5 < 5000 {print $1,$2,$4,$5}' $HOME/awk/cars.txt > /tmp/temp.$$
+awk '$5 < 5000 {print $1,$2,$4,$5}' $HOME/awk/cars > /tmp/temp.$$
 check "diff $HOME/awk/awk-4.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-4.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
@@ -128,7 +128,7 @@ check "test -f $HOME/awk/awk-5.txt" "The text file pathname \"$HOME/awk/awk-5.tx
 
 # Check ~/awk/awk-5.txt file contains correct results
 echo -n "Checking \"$HOME/awk/awk-5.txt\" file contains correct results: " | tee -a $logfile
-awk '$5 < 5000 {print $5,$4,$2,$1}' $HOME/awk/cars.txt > /tmp/temp.$$
+awk '$5 < 5000 {print $5,$4,$2,$1}' $HOME/awk/cars > /tmp/temp.$$
 check "diff $HOME/awk/awk-5.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-5.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
@@ -138,7 +138,7 @@ check "test -f $HOME/awk/awk-6.txt" "The text file pathname \"$HOME/awk/awk-6.tx
 
 # Check ~/awk/awk-6.txt file contains correct results
 echo -n "Checking \"$HOME/awk/awk-6.txt\" file contains correct results: " | tee -a $logfile
-awk '$1 ~ /^f/ {print $1,$2,$4}' $HOME/awk/cars.txt > /tmp/temp.$$
+awk '$1 ~ /^f/ {print $1,$2,$4}' $HOME/awk/cars > /tmp/temp.$$
 check "diff $HOME/awk/awk-6.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-6.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
@@ -148,7 +148,7 @@ check "test -f $HOME/awk/awk-7.txt" "The text file pathname \"$HOME/awk/awk-7.tx
 
 # Check ~/awk/awk-7.txt file contains correct results
 echo -n "Checking \"$HOME/awk/awk-7.txt\" file contains correct results: " | tee -a $logfile
-awk '$1 ~ /ford/ && $5 > 10000 {print $0}' $HOME/awk/cars.txt > /tmp/temp.$$
+awk '$1 ~ /ford/ && $5 > 10000 {print $0}' $HOME/awk/cars > /tmp/temp.$$
 check "diff $HOME/awk/awk-7.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-7.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
