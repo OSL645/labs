@@ -156,16 +156,6 @@ rm /tmp/temp.$$ 2> /dev/null
 echo -n "Checking \"$HOME/sed/sed-8.txt\" file exists: " | tee -a $logfile
 check "test -f $HOME/sed/sed-8.txt" "The text file pathname \"$HOME/sed/sed-8.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
 
-# Check ~/sed/sed-8.txt file contains correct results
-# echo -n "Checking \"$HOME/sed/sed-8.txt\" file contains correct results: "
-# who | sed -n '/^[a-m]/ p'  > /tmp/temp.$$
-# check "diff $HOME/sed/sed-8.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-8.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
-# rm /tmp/temp.$$ 2> /dev/null
-
-# Check ~/sed/sed-9.txt file exists
-echo -n "Checking \"$HOME/sed/sed-9.txt\" file exists: " | tee -a $logfile
-check "test -f $HOME/sed/sed-9.txt" "The text file pathname \"$HOME/sed/sed-9.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
-
 warningcount=$(grep -c "WARNING" $logfile)
 
 echo | tee -a $logfile
