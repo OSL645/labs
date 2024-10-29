@@ -108,7 +108,7 @@ check "test -f $HOME/awk/awk-3.txt" "The text file pathname \"$HOME/awk/awk-3.tx
 
 # Check ~/awk/awk-3.txt file contains correct results
 echo -n "Checking \"$HOME/awk/awk-3.txt\" file contains correct results: " | tee -a $logfile
-awk '$1 ~ /plym/ {print $2,$3,$4,$5}' $HOME/awk/cars  > /tmp/temp.$$
+awk '$1 ~ /Plym/ {print $2,$3,$4,$5}' $HOME/awk/cars  > /tmp/temp.$$
 check "diff $HOME/awk/awk-3.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/awk/awk-3.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
