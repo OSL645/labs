@@ -82,9 +82,6 @@ check "test -d $HOME/sed" "The directory pathname \"$HOME/sed\" does NOT exist. 
 echo -n "Checking \"data.txt\" file was copied to the \"sed\" directory: " | tee -a $logfile
 check "test -f $HOME/sed/data.txt" "The file pathname \"$HOME/sed/data.txt\" does NOT exist. Change to ~/bin and issue git pull to properly download this file. Copy it to your ~/sed directory and re-run this checking script" | tee -a $logfile
 
-
-
-
 # Check ~/sed/sed-1.txt file exists
 echo -n "Checking \"$HOME/sed/sed-1.txt\" file exists: " | tee -a $logfile
 check "test -f $HOME/sed/sed-1.txt" "The text file pathname \"$HOME/sed/sed-1.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
@@ -94,7 +91,6 @@ echo -n "Checking \"$HOME/sed/sed-1.txt\" file contains correct results: " | tee
 sed -n 'p' $HOME/sed/data.txt > /tmp/temp.$$
 check "diff $HOME/sed/sed-1.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-1.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
-
 
 # Check ~/sed/sed-2.txt file exists
 echo -n "Checking \"$HOME/sed/sed-2.txt\" file exists: " | tee -a $logfile
@@ -106,7 +102,6 @@ sed -n '1 p' $HOME/sed/data.txt > /tmp/temp.$$
 check "diff $HOME/sed/sed-2.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-2.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
-
 # Check ~/sed/sed-3.txt file exists
 echo -n "Checking \"$HOME/sed/sed-3.txt\" file exists: " | tee -a $logfile
 check "test -f $HOME/sed/sed-3.txt" "The text file pathname \"$HOME/sed/sed-3.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
@@ -116,7 +111,6 @@ echo -n "Checking \"$HOME/sed/sed-3.txt\" file contains correct results: " | tee
 sed -n '2,5 p' $HOME/sed/data.txt  > /tmp/temp.$$
 check "diff $HOME/sed/sed-3.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-3.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
-
 
 # Check ~/sed/sed-4.txt file exists
 echo -n "Checking \"$HOME/sed/sed-4.txt\" file exists: " | tee -a $logfile
@@ -128,7 +122,6 @@ sed '2,5 s/TUTORIAL/LESSON/g' $HOME/sed/data.txt > /tmp/temp.$$
 check "diff $HOME/sed/sed-4.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-4.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
-
 # Check ~/sed/sed-5.txt file exists
 echo -n "Checking \"$HOME/sed/sed-5.txt\" file exists: " | tee -a $logfile
 check "test -f $HOME/sed/sed-5.txt" "The text file pathname \"$HOME/sed/sed-5.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
@@ -138,7 +131,6 @@ echo -n "Checking \"$HOME/sed/sed-5.txt\" file contains correct results: " | tee
 sed '11 q' $HOME/sed/data.txt > /tmp/temp.$$
 check "diff $HOME/sed/sed-5.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-5.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
-
 
 # Check ~/sed/sed-6.txt file exists
 echo -n "Checking \"$HOME/sed/sed-6.txt\" file exists: " | tee -a $logfile
@@ -150,7 +142,6 @@ sed -n '/^The/ p' $HOME/sed/data.txt > /tmp/temp.$$
 check "diff $HOME/sed/sed-6.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-6.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
-
 # Check ~/sed/sed-7.txt file exists
 echo -n "Checking \"$HOME/sed/sed-7.txt\" file exists: " | tee -a $logfile
 check "test -f $HOME/sed/sed-7.txt" "The text file pathname \"$HOME/sed/sed-7.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
@@ -161,7 +152,6 @@ sed -n '/d$/ p' $HOME/sed/data.txt > /tmp/temp.$$
 check "diff $HOME/sed/sed-7.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-7.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script" | tee -a $logfile
 rm /tmp/temp.$$ 2> /dev/null
 
-
 # Check ~/sed/sed-8.txt file exists
 echo -n "Checking \"$HOME/sed/sed-8.txt\" file exists: " | tee -a $logfile
 check "test -f $HOME/sed/sed-8.txt" "The text file pathname \"$HOME/sed/sed-8.txt\" does NOT exist. Check if you mispelled file pathname, or used uppercase letters by mistake. Reissue the correct pipeline command and re-run this checking script"
@@ -171,7 +161,6 @@ check "test -f $HOME/sed/sed-8.txt" "The text file pathname \"$HOME/sed/sed-8.tx
 # who | sed -n '/^[a-m]/ p'  > /tmp/temp.$$
 # check "diff $HOME/sed/sed-8.txt /tmp/temp.$$ > /dev/null" "The \"$HOME/sed/sed-8.txt\" does NOT  contain the correct results from issuing the pipeline command. Reissue the correct pipeline command and re-run this checking script"
 # rm /tmp/temp.$$ 2> /dev/null
-
 
 # Check ~/sed/sed-9.txt file exists
 echo -n "Checking \"$HOME/sed/sed-9.txt\" file exists: " | tee -a $logfile
