@@ -1,0 +1,121 @@
+#!/bin/bash
+
+# ./lab10-check-1.bash
+
+# Author:  Murray Saul
+# Date:    June 7, 2016
+# Edited by: Peter Callaghan
+# Date: Sept 26, 2021
+#
+# Edited by: Brian Gray 
+# For new debian labs Fall 2023
+#
+# Edited by: Jason Carman
+# For Ubuntu 24.04 in OSL645
+# Date: November 1, 2024
+
+#
+# Purpose: Check that students correctly managed user and group accounts
+#          when performing this lab, check that students have properly
+#          managed services, and created a shell script to work like
+#          a Linux command to automate creation of multiple user
+#          accounts (user data stored in a text-file).
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+suser=${SUDO_USER:-$USER}
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab9-check-1_output.txt
+
+function check(){
+
+  if eval $1; then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo
+     echo
+     echo -e "\e[0;31mWARNING\e[m"
+     echo
+     echo
+     echo $2
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+if [ $PWD != $HOME ]; then
+   echo -e "\033[1mERROR:\033[0m"
+   echo
+   echo "You are NOT located in your HOME directory."
+   echo -e "(i.e. \033[1m$HOME\033[0m )"
+   echo
+   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+   echo -e "and confirm that you are"
+   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+   echo "and re-run this checking script."
+   echo
+   echo
+
+   exit 1
+fi
+
+# Make certain user is logged in as root
+if [ $(whoami) != "root" ]; then
+  echo "Note: You are required to run this program as root. Use sudo"
+  exit 1
+fi
+
+# System information gathering
+echo "OSL645 Lab 9 Check 1 Script" > $logfile
+echo | tee -a $logfile
+echo "CHECKING YOUR LAB 4 WORK:" | tee -a $logfile
+echo | tee -a $logfile
+
+# Check osl645_2 user created
+echo "Checking that osl645_2 user created: " | tee -a $logfile
+check "\"grep -isq \"osl645_2\" /etc/passwd\"" "This program did NOT detect the user \"osl645_2\" in the \"/etc/passwd\" file. Please create this user, complete this lab, and re-run this checking script." | tee -a $logfile
+
+# Check osl645_1 user removed
+echo -n "Checking that osl645_1 user removed: "
+check "! grep -isq \"osl645_2\" /etc/passwd" "This program detected the user \"osl645_1\" in the \"/etc/passwd\" file, when that user should have been removed. Please remove this user, complete this lab, and re-run this checking script."
+
+# Check foobar.txt created in /etc/skel directory
+echo "Checking that \"/etc/skel\" directory contains the file called \"foobar.txt\":" | tee -a $logfile
+check "ls /etc/skel | grep -isq \"foobar.txt\"" "This program did NOT detect the file called \"foobar.txt\" in the \"/etc/skel\" directory. Please create this file, remove the user ops245_2, and then create that user to see the \"foobar.txt\" file automatically created in that user's home directory upon the creation of this user. Complete this lab, and re-run this checking script." | tee -a $logfile
+
+# Check group created with name "welcome"
+echo "Checking that a group name \"welcome\" is contained in the file \"/etc/group\": " | tee -a $logfile
+check "grep -isq \"welcome\" /etc/group" "This program did NOT detect the group name \"welcome\" in the \"/etc/group\" file. Please remove the group, and correctly add the group with the correct GID, complete the lab (with secondary users added), and re-run this checking script." | tee -a $logfile
+
+# Check user noobie removed
+echo "Checking that \"noobie\" user was removed: " | tee -a $logfile
+check "! grep -isq \"noobie\" /etc/passwd" "This program did NOT detect the user name \"noobie\" was removed. Remove this user account, and re-run this checking script." | tee -a $logfile
+
+# Check ssh service started and enabled
+echo "Checking that ssh service started and enabled: " | tee -a $logfile
+check "systemctl status ssh | grep -iqs \"active\" && systemctl status ssh | grep -iqs \"enabled\"" "This program did NOT detect that the ssh service has \"started\" and/or is \"enabled\". Use systemctl to start and enable the ssh service, and re-run this checking script." | tee -a $logfile
+
+# Check for file: ~/bin/createusers.bash
+echo  "Checking that the script \"/home/$suser/bin/createusers.bash\" exists: " | tee -a $logfile
+check "test -f /home/$suser/bin/createUsers.bash" "This program did NOT detect the file \"/home/$suser/bin/createUSers.bash\" on your \"debhost\" machine. Complete the lab, and re-run this checking script." | tee -a $logfile
+
+warningcount=`grep -c "WARNING" $logfile`
+
+echo | tee -a $logfile
+echo | tee -a $logfile
+
+if [ $warningcount == 0 ]; then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 9 - Check 1" | tee -a $logfile
+  echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
