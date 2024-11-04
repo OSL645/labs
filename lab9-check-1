@@ -63,7 +63,7 @@ check "grep -isq \"osl645_2\" /etc/passwd" "This program did NOT detect the user
 
 # Check osl645_1 user removed
 echo -n "Checking that osl645_1 user removed: "
-check "! grep -isq \"osl645_2\" /etc/passwd" "This program detected the user \"osl645_1\" in the \"/etc/passwd\" file, when that user should have been removed. Please remove this user, complete this lab, and re-run this checking script."
+check "! grep -isq \"osl645_1\" /etc/passwd" "This program detected the user \"osl645_1\" in the \"/etc/passwd\" file, when that user should have been removed. Please remove this user, complete this lab, and re-run this checking script."
 
 # Check foobar.txt created in /etc/skel directory
 echo "Checking that \"/etc/skel\" directory contains the file called \"foobar.txt\":" | tee -a $logfile
