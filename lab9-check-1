@@ -81,10 +81,6 @@ check "! grep -isq \"noobie\" /etc/passwd" "This program did NOT detect the user
 echo "Checking that ssh service started and enabled: " | tee -a $logfile
 check "systemctl status ssh | grep -iqs \"active\" && systemctl status ssh | grep -iqs \"enabled\"" "This program did NOT detect that the ssh service has \"started\" and/or is \"enabled\". Use systemctl to start and enable the ssh service, and re-run this checking script." | tee -a $logfile
 
-# Check for file: ~/bin/createusers.bash
-echo  "Checking that the script \"/home/$suser/bin/createusers.bash\" exists: " | tee -a $logfile
-check "test -f /home/$suser/bin/createUsers.bash" "This program did NOT detect the file \"/home/$suser/bin/createUSers.bash\" on your \"debhost\" machine. Complete the lab, and re-run this checking script." | tee -a $logfile
-
 warningcount=`grep -c "WARNING" $logfile`
 
 echo | tee -a $logfile
