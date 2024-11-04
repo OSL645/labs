@@ -59,7 +59,7 @@ echo | tee -a $logfile
 
 # Check osl645_2 user created
 echo "Checking that osl645_2 user created: " | tee -a $logfile
-check "\"grep -isq \"osl645_2\" /etc/passwd\"" "This program did NOT detect the user \"osl645_2\" in the \"/etc/passwd\" file. Please create this user, complete this lab, and re-run this checking script." | tee -a $logfile
+check "grep -isq \"osl645_2\" /etc/passwd" "This program did NOT detect the user \"osl645_2\" in the \"/etc/passwd\" file. Please create this user, complete this lab, and re-run this checking script." | tee -a $logfile
 
 # Check osl645_1 user removed
 echo -n "Checking that osl645_1 user removed: "
