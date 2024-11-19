@@ -45,21 +45,21 @@ clear  # Clear the screen
 
 # Make certain user is in the home directory
 
-if [ $PWD != $HOME ]; then
-   echo -e "\033[1mERROR:\033[0m"
-   echo
-   echo "You are NOT located in your HOME directory."
-   echo -e "(i.e. \033[1m$HOME\033[0m )"
-   echo
-   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
-   echo -e "and confirm that you are"
-   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
-   echo "and re-run this checking script."
-   echo
-   echo
+# if [ $PWD != $HOME ]; then
+#   echo -e "\033[1mERROR:\033[0m"
+#   echo
+#   echo "You are NOT located in your HOME directory."
+#   echo -e "(i.e. \033[1m$HOME\033[0m )"
+#   echo
+#   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+#   echo -e "and confirm that you are"
+#   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+#   echo "and re-run this checking script."
+#   echo
+#   echo
 
-   exit 1
-fi
+#   exit 1
+# fi
 
 
 # Start checking of week12 tutorial
