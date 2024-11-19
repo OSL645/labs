@@ -1,0 +1,139 @@
+#!/bin/bash
+
+# lab10-check-1
+
+# Author:  Murray Saul
+# Date:    March 21, 2021
+# Modified by:	Jason Carman
+# Modified:	November 11, 2024
+#
+# Purpose: Verify that user created more advanced shell scripts
+#          
+#          This script also checks to if student's script's output match the
+#          required output as per tutorial instructions
+#     
+#
+# License: LGPL version 3
+# Link:    https://www.gnu.org/licenses/lgpl.html
+#
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+
+suser=${SUDO_USER:-$USER}
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab10-check-1_output.txt
+
+function check(){
+
+  if eval $1; then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     echo $2 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+if [ $PWD != $HOME ]; then
+   echo -e "\033[1mERROR:\033[0m"
+   echo
+   echo "You are NOT located in your HOME directory."
+   echo -e "(i.e. \033[1m$HOME\033[0m )"
+   echo
+   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+   echo -e "and confirm that you are"
+   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+   echo "and re-run this checking script."
+   echo
+   echo
+
+   exit 1
+fi
+
+
+# Start checking of week12 tutorial
+echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
+echo
+
+
+# Check "lab-10-username" directory was created in home directory
+echo -n "Checking the lab 10 GitHub repository has been cloned locally in your home directory: "
+check "test -d $HOME/lab-10-*" "The directory pathname \"$HOME/lab-10-username\" does NOT exist. Clone your GitHub repository locally and re-run this checking script\n"
+
+
+# Check "users1.bash" shell script produces the correct output
+echo -n "Checking \"users1.bash\" shell script produces the correct output: "
+
+cat > /tmp/compare.$$ <<+
+tstark
+bbanner
+thor
+srogers
+nromanoff
++
+
+# Run student's shell script and store stdout to a temp file
+
+$HOME/lab-10-*/users1.bash > /tmp/student.$$
+
+# Check student's "users1.bash" shell script has CORRECT output
+# Notice that "diff" command is used to compare your shell script's output
+# with CORRECT required output (i.e. comparison file)
+# Notice command's output and error thrown out to "/dev/null" since
+# we are only interested in TRUE or FALSE.
+
+echo -n "Checking your \"users1.bash\" shell script file produces CORRECT required output: " | tee -a $logfile
+check "diff /tmp/student.$$ /tmp/compare.$$ > /dev/null 2> /dev/null" "The OUTPUT when running your Bash shell script does NOT match\nthe required specifications provided from your tutorial instructions.\n\n\e[3;4;33mYOUR SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/student.$$)\n\n\e[3;4;33mCORRECT SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/compare.$$)\n\nCAREFULLY look for differences, then make corrections to your Bash shell script\nto match CORRECT OUTPUT, save editing changes, run your script to confirm,\nand then re-run this checking script." | tee -a $logfile
+
+# Check "users2.bash" shell script produces the correct output
+echo -n "Checking \"users2.bash\" shell script produces the correct output: "
+
+cat > /tmp/compare.$$ <<+
+Usernames:
+tstark
+bbanner
+thor
+srogers
+nromanoff
++
+
+# Run student's shell script and store stdout to a temp file
+
+$HOME/lab-10-*/users2.bash > /tmp/student.$$
+
+# Check student's "users2.bash" shell script has CORRECT output
+# Notice that "diff" command is used to compare your shell script's output
+# with CORRECT required output (i.e. comparison file)
+# Notice command's output and error thrown out to "/dev/null" since
+# we are only interested in TRUE or FALSE.
+
+echo -n "Checking your \"users2.bash\" shell script file produces CORRECT required output: " | tee -a $logfile
+check "diff /tmp/student.$$ /tmp/compare.$$ > /dev/null 2> /dev/null" "The OUTPUT when running your Bash shell script does NOT match\nthe required specifications provided from your tutorial instructions.\n\n\e[3;4;33mYOUR SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/student.$$)\n\n\e[3;4;33mCORRECT SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/compare.$$)\n\nCAREFULLY look for differences, then make corrections to your Bash shell script\nto match CORRECT OUTPUT, save editing changes, run your script to confirm,\nand then re-run this checking script." | tee -a $logfile
+
+warningcount=`grep -c "WARNING" $logfile`
+
+echo | tee -a $logfile
+echo | tee -a $logfile
+
+if [ $warningcount == 0 ]; then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 10 - Check 1" | tee -a $logfile
+  echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
