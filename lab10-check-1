@@ -118,6 +118,10 @@ $HOME/lab-10-*/users2.bash > /tmp/student2.$$
 # Notice command's output and error thrown out to "/dev/null" since
 # we are only interested in TRUE or FALSE.
 
+echo "######"
+pwd
+echo "######"
+
 echo -n "Checking your \"users2.bash\" shell script file produces CORRECT required output: " | tee -a $logfile
 check "diff /tmp/student2.$$ /tmp/compare2.$$ > /dev/null 2> /dev/null" "The OUTPUT when running your Bash shell script does NOT match\nthe required specifications provided from your tutorial instructions.\n\n\e[3;4;33mYOUR SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/student.$$)\n\n\e[3;4;33mCORRECT SHELL SCRIPT OUTPUT (including empty lines)\e[0m\n$(cat /tmp/compare.$$)\n\nCAREFULLY look for differences, then make corrections to your Bash shell script\nto match CORRECT OUTPUT, save editing changes, run your script to confirm,\nand then re-run this checking script." | tee -a $logfile
 
