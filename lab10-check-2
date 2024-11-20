@@ -30,7 +30,7 @@ function check(){
   else
      echo -e "\e[0;31mWARNING\e[m"
      echo 
-     printf "$2" 
+     echo "$2" 
      echo
      exit 1
   fi

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# lab10-check-3
+# lab10-check-4
 
 # Author: Jason Carman
 # Modified:	November 20, 2024
@@ -62,23 +62,34 @@ clear  # Clear the screen
 
 
 # System information gathering
-echo "OSL645 Lab 10 Check 3 Script" > $logfile
+echo "OSL645 Lab 10 Check 4 Script" > $logfile
 echo | tee -a $logfile
 echo "CHECKING YOUR LAB 10 WORK:" | tee -a $logfile
 echo | tee -a $logfile
 
-# Check the convert.bash script exists
-echo -n "Checking your \"convert.bash\" shell script file exists: " | tee -a $logfile
-check "test -f $HOME/lab-10-*/convert.bash" "The file \"convert.bash\" does NOT exist. Use Git to clone your repo and re-run this checking script\n." | tee -a $logfile
+# Check the createusers.bash script exists
+echo -n "Checking your \"createusers.bash\" shell script file exists: " | tee -a $logfile
+check "test -f $HOME/lab-10-*/createusers.bash" "The file \"createusers.bash\" does NOT exist. Use Git to clone your repo and re-run this checking script\n." | tee -a $logfile
 
-echo -n "Checking your \"githublogo.png\" file exists: " | tee -a $logfile
-check "test -f $HOME/lab-10-*/githublogo.png" "The file \"githublogo.png\" does NOT exist. Run your convert.bash script on your VM." | tee -a $logfile
+# Check tstark user created
+echo "Checking that tstark user created: " | tee -a $logfile
+check "grep -isq \"tstark\" /etc/passwd" "This program did NOT detect the user \"tstark\" in the \"/etc/passwd\" file. Please execute your createusers.bash script, and re-run this checking script." | tee -a $logfile
 
-echo -n "Checking your \"tux.png\" file exists: " | tee -a $logfile
-check "test -f $HOME/lab-10-*/tux.png" "The file \"tux.png\" does NOT exist. Run your convert.bash script on your VM." | tee -a $logfile
+# Check bbanner user created
+echo "Checking that bbanner user created: " | tee -a $logfile
+check "grep -isq \"bbanner\" /etc/passwd" "This program did NOT detect the user \"bbanner\" in the \"/etc/passwd\" file. Please execute your createusers.bash script, and re-run this checking script." | tee -a $logfile
 
-echo -n "Checking your \"ubuntu.png\" file exists: " | tee -a $logfile
-check "test -f $HOME/lab-10-*/ubuntu.png" "The file \"ubuntu.png\" does NOT exist. Run your convert.bash script on your VM." | tee -a $logfile
+# Check thor user created
+echo "Checking that thor user created: " | tee -a $logfile
+check "grep -isq \"thor\" /etc/passwd" "This program did NOT detect the user \"thor\" in the \"/etc/passwd\" file. Please execute your createusers.bash script, and re-run this checking script." | tee -a $logfile
+
+# Check srogers user created
+echo "Checking that srogers user created: " | tee -a $logfile
+check "grep -isq \"srogers\" /etc/passwd" "This program did NOT detect the user \"srogers\" in the \"/etc/passwd\" file. Please execute your createusers.bash script, and re-run this checking script." | tee -a $logfile
+
+# Check nromanoff user created
+echo "Checking that nromanoff user created: " | tee -a $logfile
+check "grep -isq \"nromanoff\" /etc/passwd" "This program did NOT detect the user \"nromanoff\" in the \"/etc/passwd\" file. Please execute your createusers.bash script, and re-run this checking script." | tee -a $logfile
 
 warningcount=`grep -c "WARNING" $logfile`
 
@@ -88,7 +99,7 @@ echo | tee -a $logfile
 if [ $warningcount == 0 ]; then
   echo "Congratulations!" | tee -a $logfile
   echo | tee -a $logfile
-  echo "You have successfully completed Lab 10 - Check 3" | tee -a $logfile
+  echo "You have successfully completed Lab 10 - Check 4" | tee -a $logfile
   echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
   echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
   echo
