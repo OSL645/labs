@@ -73,13 +73,13 @@ echo | tee -a $logfile
 echo -n "Checking your \"convert.bash\" shell script file exists: " | tee -a $logfile
 check "test -f $HOME/lab-10-*/convert.bash" "The file \"convert.bash\" does NOT exist. Use Git to clone your repo and re-run this checking script\n." | tee -a $logfile
 
-echo -n "Checking your \"githublogo.png\" shell script file exists: " | tee -a $logfile
+echo -n "Checking your \"githublogo.png\" file exists: " | tee -a $logfile
 check "test -f $HOME/lab-10-*/githublogo.png" "The file \"githublogo.png\" does NOT exist. Run your convert.bash script on your VM." | tee -a $logfile
 
-echo -n "Checking your \"tux.png\" shell script file exists: " | tee -a $logfile
+echo -n "Checking your \"tux.png\" file exists: " | tee -a $logfile
 check "test -f $HOME/lab-10-*/tux.png" "The file \"tux.png\" does NOT exist. Run your convert.bash script on your VM." | tee -a $logfile
 
-echo -n "Checking your \"ubuntu.png\" shell script file exists: " | tee -a $logfile
+echo -n "Checking your \"ubuntu.png\" file exists: " | tee -a $logfile
 check "test -f $HOME/lab-10-*/ubuntu.png" "The file \"ubuntu.png\" does NOT exist. Run your convert.bash script on your VM." | tee -a $logfile
 
 warningcount=`grep -c "WARNING" $logfile`
