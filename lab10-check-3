@@ -2,13 +2,11 @@
 
 # lab10-check-3
 
-# Author:  Murray Saul
-# Date:    February 17, 2021
-# Modified by:	Jason Carman
+# Author: Jason Carman
 # Modified:	November 20, 2024
 #
-# Purpose: Verify that user created a shell script "hello" exists in
-#          their home directory and has execute permissions
+# Purpose: Verify that user created a shell script "convert.bash"
+#          and ran it
 #          
 #          This script also checks to if student's script's output match the
 #          required output as per tutorial instructions
