@@ -1,0 +1,128 @@
+#!/bin/bash
+
+# lab10-check-2
+
+# Author:  Murray Saul
+# Date:    February 17, 2021
+# Modified by:	Jason Carman
+# Modified:	November 19, 2024
+#
+# Purpose: Verify that user created a shell script "hello" exists in
+#          their home directory and has execute permissions
+#          
+#          This script also checks to if student's script's output match the
+#          required output as per tutorial instructions
+#     
+#
+# License: LGPL version 3
+# Link:    https://www.gnu.org/licenses/lgpl.html
+#
+
+# Function to indicate OK (in green) if check is true; otherwise, indicate
+# WARNING (in red) if check is false and end with false exit status
+suser=${SUDO_USER:-$USER}
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Documents/lab10-check-2_output.txt
+
+function check(){
+
+  if eval $1; then
+     echo -e "\e[0;32mOK\e[m"
+  else
+     echo -e "\e[0;31mWARNING\e[m"
+     echo 
+     printf "$2" 
+     echo
+     exit 1
+  fi
+
+} # end of check() function
+
+# Set shell shell history
+HISTFILE=~/.bash_history
+set -o history
+
+clear  # Clear the screen
+
+# Make certain user is in the home directory
+
+# if [ $PWD != $HOME ]
+#  then
+#   echo -e "\033[1mERROR:\033[0m"
+#   echo
+#   echo "You are NOT located in your HOME directory."
+#   echo -e "(i.e. \033[1m$HOME\033[0m )"
+#   echo
+#   echo -en "Issue the \033[1mcd\033[0m command (without arguments)"
+#   echo -e "and confirm that you are"
+#   echo -e "currently located in your home directory with the \033[1mpwd\033[0m command,"
+#   echo "and re-run this checking script."
+#   echo
+#   echo
+# 
+#   exit 1
+# fi
+
+
+# System information gathering
+echo "OSL645 Lab 10 Check 2 Script" > $logfile
+echo | tee -a $logfile
+echo "CHECKING YOUR LAB 10 WORK:" | tee -a $logfile
+echo | tee -a $logfile
+
+# Check "users3.bash" shell script produces the correct output
+echo -n "Checking \"users3.bash\" shell script produces the correct output: "
+
+# Run student's shell script and store stdout to a temp file
+
+$HOME/lab-10-*/users3.bash > /tmp/student.$$
+
+# Check student's "users1.bash" shell script has CORRECT output
+# Notice that "diff" command is used to compare your shell script's output
+# with CORRECT required output (i.e. comparison file)
+# Notice command's output and error thrown out to "/dev/null" since
+# we are only interested in TRUE or FALSE.
+
+echo -n "Checking your \"users3.bash\" shell script file produces CORRECT output: " | tee -a $logfile
+
+# Check for column headers
+check "grep -iqs \"Username\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"Username\"" | tee -a $logfile
+check "grep -iqs \"Full Name\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"Full Name\"" | tee -a $logfile
+check "grep -iqs \"Email\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"Email\"" | tee -a $logfile
+
+# Check for usernames
+check "grep -iqs \"tstark\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"tstark\"" | tee -a $logfile
+check "grep -iqs \"bbanner\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"bbanner\"" | tee -a $logfile
+check "grep -iqs \"thor\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"thor\"" | tee -a $logfile
+check "grep -iqs \"srogers\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"srogers\"" | tee -a $logfile
+check "grep -iqs \"nromanoff\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"nromanoff\"" | tee -a $logfile
+
+# Check for full names
+check "grep -iqs \"Tony Stark\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"Tony Stark\"" | tee -a $logfile
+check "grep -iqs \"Bruce Banner\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"Bruce Banner\"" | tee -a $logfile
+check "grep -iqs \"Thor Odinson\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"Thor Odinson\"" | tee -a $logfile
+check "grep -iqs \"Steve Rogers\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"Steve Rogers\"" | tee -a $logfile
+check "grep -iqs \"Natasha Romanoff\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"Natasha Romanoff\"" | tee -a $logfile
+
+# Check for emails
+check "grep -iqs \"ironman@avengers.org\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"ironman@avengers.org\"" | tee -a $logfile
+check "grep -iqs \"hulk@avengers.org\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"hulk@avengers.org\"" | tee -a $logfile
+check "grep -iqs \"thor@avengers.org\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"thor@avengers.org\"" | tee -a $logfile
+check "grep -iqs \"captainamerica@avengers.org\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"captainamerica@avengers.org\"" | tee -a $logfile
+check "grep -iqs \"blackwidow@avengers.org\" /tmp/student.$$" > /dev/null 2> /dev/null "The OUTPUT when running your Bash shell script does NOT include the string \"blackwidow@avengers.org\"" | tee -a $logfile
+
+warningcount=`grep -c "WARNING" $logfile`
+
+echo | tee -a $logfile
+echo | tee -a $logfile
+
+if [ $warningcount == 0 ]; then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 10 - Check 2" | tee -a $logfile
+  echo "1. Show the output of this script to your OSL645 professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi

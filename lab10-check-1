@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    March 21, 2021
 # Modified by:	Jason Carman
-# Modified:	November 11, 2024
+# Modified:	November 19, 2024
 #
 # Purpose: Verify that user created more advanced shell scripts
 #          
@@ -62,15 +62,15 @@ clear  # Clear the screen
 # fi
 
 
-# Start checking of week12 tutorial
-echo -e "\033[1mCHECKING YOUR WORK:\033[0m"
-echo
-
+# System information gathering
+echo "OSL645 Lab 10 Check 1 Script" > $logfile
+echo | tee -a $logfile
+echo "CHECKING YOUR LAB 10 WORK:" | tee -a $logfile
+echo | tee -a $logfile
 
 # Check "lab-10-username" directory was created in home directory
 echo -n "Checking the lab 10 GitHub repository has been cloned locally in your home directory: "
 check "test -d $HOME/lab-10-*" "The directory pathname \"$HOME/lab-10-username\" does NOT exist. Clone your GitHub repository locally and re-run this checking script\n"
-
 
 # Check "users1.bash" shell script produces the correct output
 echo -n "Checking \"users1.bash\" shell script produces the correct output: "

@@ -54,7 +54,7 @@ fi
 # System information gathering
 echo "OSL645 Lab 9 Check 1 Script" > $logfile
 echo | tee -a $logfile
-echo "CHECKING YOUR LAB 4 WORK:" | tee -a $logfile
+echo "CHECKING YOUR LAB 9 WORK:" | tee -a $logfile
 echo | tee -a $logfile
 
 # Check osl645_2 user created
