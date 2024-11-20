@@ -109,7 +109,6 @@ nromanoff
 +
 
 # Run student's shell script and store stdout to a temp file
-
 $HOME/lab-10-*/users2.bash > /tmp/student2.$$
 
 # Check student's "users2.bash" shell script has CORRECT output
