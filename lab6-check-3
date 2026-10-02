@@ -78,11 +78,11 @@ echo
 
 # Check "if-1.bash" shell script was created
 echo -n "Checking \"if-1.bash\" shell script file has been created: " | tee -a $logfile
-check "test -f $HOME/lab-6-*/if-1.bash" "The file pathname \"$HOME/lab-6-*/if-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Use Git to clone your repo and re-run this checking script\n" | tee -a $logfile
+check "test -f $HOME/lab6/if-1.bash" "The file pathname \"$HOME/lab6/if-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Use Git to clone your repo and re-run this checking script\n" | tee -a $logfile
 
 # Check "if-1.bash" shell script has execute permissions
 echo -n "Checking \"if-1.bash\" shell script file has execute permissions: " | tee -a $logfile
-check "test -x $HOME/lab-6-*/if-1.bash" "The shell script pathname \"$HOME/if-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"if-1.bash\" shell script file and re-run this checking script\n" | tee -a $logfile
+check "test -x $HOME/lab6/if-1.bash" "The shell script pathname \"$HOME/lab6/if-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"if-1.bash\" shell script file and re-run this checking script\n" | tee -a $logfile
 
 # Create the temporary BENCHMARK output file of if-1.bash for comparison purposes
 # Notice that the "Here Document" is used to create this file with redirection 
@@ -93,7 +93,7 @@ num1 is less than num2
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/lab-6-*/if-1.bash > /tmp/student.$$
+$HOME/lab6*/if-1.bash > /tmp/student.$$
 
 # Check student's "if-1.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output
@@ -106,11 +106,11 @@ check "diff /tmp/student.$$ /tmp/compare.$$ > /dev/null 2> /dev/null" "The OUTPU
 
 # Check "for-1.bash" shell script was created
 echo -n "Checking \"for-1.bash\" shell script file has been created: " | tee -a $logfile
-check "test -f $HOME/lab-6-*/for-1.bash" "The file pathname \"$HOME/lab-6-*/for-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-1.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -f $HOME/lab6*/for-1.bash" "The file pathname \"$HOME/lab6*/for-1.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-1.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
 
 # Check "for-1.bash" shell script has execute permissions
 echo -n "Checking \"for-1.bash\" shell script file has execute permissions: "
-check "test -x $HOME/lab-6-*/for-1.bash" "The shell script pathname \"$HOME/lab-6-*/for-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-1.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -x $HOME/lab6*/for-1.bash" "The shell script pathname \"$HOME/lab6*/for-1.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-1.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
 
 # Check "for-1.bash" shell script contains "she-bang" line at TOP of file
 # Notice that an extended regular expression is used to permit one or more spaces
@@ -135,7 +135,7 @@ blast-off!
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/lab-6-*/for-1.bash > /tmp/student.$$
+$HOME/lab6*/for-1.bash > /tmp/student.$$
 
 # Check student's "for-1.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output
@@ -148,11 +148,11 @@ check "diff /tmp/student.$$ /tmp/compare.$$ > /dev/null 2> /dev/null" "The OUTPU
 
 # Check "for-2.bash" shell script was created
 echo -n "Checking \"for-2.bash\" shell script file has been created: " | tee -a $logfile
-check "test -f $HOME/lab-6-*/for-2.bash" "The file pathname \"$HOME/lab-6-*/for-2.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-2.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -f $HOME/lab6*/for-2.bash" "The file pathname \"$HOME/lab6*/for-2.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Rename the shell script file to \"for-2.bash\" in your home directory and re-run this checking script\n" | tee -a $logfile
 
 # Check "for-2.bash" shell script (in your home directory) has execute permissions
 echo -n "Checking \"for-2.bash\" shell script file has execute permissions: "
-check "test -x $HOME/lab-6-*/for-2.bash" "The shell script pathname \"$HOME/lab-6-*/for-2.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-2.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -x $HOME/lab6*/for-2.bash" "The shell script pathname \"$HOME/lab6*/for-2.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"for-2.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
 
 # Check "for-2.bash" shell script contains "she-bang" line at TOP of file
 # Notice that an extended regular expression is used to permit one or more spaces
@@ -175,7 +175,7 @@ blast-off!
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/lab-6-*/for-2.bash 3 2 1 > /tmp/student.$$
+$HOME/lab6*/for-2.bash 3 2 1 > /tmp/student.$$
 
 # Check student's "for-2.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output

@@ -69,7 +69,7 @@ echo | tee -a $logfile
 
 # Check the createusers.bash script exists
 echo -n "Checking your \"createusers.bash\" shell script file exists: " | tee -a $logfile
-check "test -f $HOME/lab-10-*/createusers.bash" "The file \"createusers.bash\" does NOT exist. Use Git to clone your repo and re-run this checking script\n." | tee -a $logfile
+check "test -f $HOME/lab10*/createusers.bash" "The file \"createusers.bash\" does NOT exist. Use Git to clone your repo and re-run this checking script\n." | tee -a $logfile
 
 # Check tstark user created
 echo "Checking that tstark user created: " | tee -a $logfile

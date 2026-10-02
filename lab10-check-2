@@ -74,7 +74,7 @@ echo -n "Checking \"users3.bash\" shell script produces the correct output: "
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/lab-10-*/users3.bash > /tmp/student.$$
+$HOME/lab10*/users3.bash > /tmp/student.$$
 
 # Check student's "users1.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output

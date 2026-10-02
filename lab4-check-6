@@ -74,11 +74,11 @@ echo
 
 # Check "hello.bash" shell script was created
 echo -n "Checking \"hello.bash\" shell script file has been created: " | tee -a $logfile
-check "test -f $HOME/lab-4-*/hello.bash" "The file pathname \"$HOME/lab-4-*/hello.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Use Git to clone your repo and re-run this checking script\n" | tee -a $logfile
+check "test -f $HOME/lab4/hello.bash" "The file pathname \"$HOME/lab4/hello.bash\" does NOT exist. Check if you mispelled file name, or used uppercase letters by mistake. Use Git to clone your repo and re-run this checking script\n" | tee -a $logfile
 
 # Check "hello.bash" shell script (in your home directory) has execute permissions
 echo -n "Checking \"hello.bash\" shell script file has execute permissions: " | tee -a $logfile
-check "test -x $HOME/lab-4-*/hello.bash" "The shell script pathname \"$HOME/lab-4-*/hello.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"hello.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
+check "test -x $HOME/lab4/hello.bash" "The shell script pathname \"$HOME/lab4/hello.bash\" does NOT have execute permissions. Add execute permissions for the owner (user) of the \"hello.bash\" shell script file in your home directory and re-run this checking script\n" | tee -a $logfile
 
 cat > /tmp/compare.$$ <<+
 
@@ -93,7 +93,7 @@ The current user home directory is: $HOME
 
 # Run student's shell script and store stdout to a temp file
 
-$HOME/lab-4-*/hello.bash > /tmp/student.$$
+$HOME/lab4*/hello.bash > /tmp/student.$$
 
 # Check student's "hello.bash" shell script has CORRECT output
 # Notice that "diff" command is used to compare your shell script's output
